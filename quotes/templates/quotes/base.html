@@ -1,0 +1,25 @@
+<!-- hw/templates/hw/base.html 
+ This is the base page from which all other pages will inherit.
+ Put common code here, specific code in sperate pages
+ -->
+ {% load static %}
+ <html>
+   <head>
+     <link rel="stylesheet" href="{% static 'quotes_styles.css' %}" />
+     <title>Base</title>
+   </head>
+   <body>
+ 
+     <nav>
+         <!-- <a href="/hw/">Home</a>  -->
+         <a href="{% url 'quotes_home' %}">Home</a> |
+         <a href="{% url 'show_all' %}">See All Quotes</a> |
+         <a href="{% url 'quotes_about' %}">About</a>
+     </nav>
+ 
+     {% block content %}
+     <!-- put the interesting (specific stuff) here -->
+     {% endblock %}
+   </body>
+ </html>
+ 

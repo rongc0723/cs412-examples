@@ -1,0 +1,10 @@
+{% extends "quotes/base.html" %}
+{% block content %}
+        <h1>Quotes</h1>
+            {% for x in quotes_images %}
+            <div>
+                <img src="{{x.1}}" alt="">
+                <p>{{ x.0 }}</p>
+            </div>
+            {% endfor %}
+{% endblock %}
