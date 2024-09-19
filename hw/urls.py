@@ -8,5 +8,7 @@ from . import views
 
 # create a list of urls for this app:
 urlpatterns = [
-    path('', views.home, name='home'), ## our firsdt URL
+    #path(url, view, name)
+    path('', views.home, name='home'),
+    path('about/', views.about, name='about'),
 ]
