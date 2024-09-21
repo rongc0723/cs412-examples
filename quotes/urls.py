@@ -9,7 +9,7 @@ from . import views
 # create a list of urls for this app:
 urlpatterns = [
     path('', views.home, name='quotes_home'), ## main page
-    # path('quote/', views.quote, name='quote'), ## quote page
+    path('quote/', views.home, name='quote'), ## quote page
     path('show_all/', views.show_all, name='show_all'), ## show all quotes
     path('about/', views.about, name='quotes_about'), ## about page
 ]
