@@ -1,29 +1,6 @@
 {% extends "quotes/base.html" %}
 {% block content %}
     <h1>About Page</h1>
-    <!-- <div>
-
-        <h3>
-            Franklin D Roosevelt
-        </h3>
-        <p>Franklin Delano Roosevelt, commonly known by his initials FDR, was an American politician who served as the 32nd president of the United States from 1933 until his death in 1945. The longest serving U.S. president, he is the only president to have served more than two terms.</p>
-    </div>
-    <div>
-        <h3>
-            Mother Teresa
-        </h3>
-        <p>Mother Teresa, known in the Catholic Church as Saint Teresa of Calcutta, was an Albanian-Indian Roman Catholic nun and missionary. She was born in Skopje, then part of the Kosovo Vilayet of the Ottoman Empire. After living in Skopje for eighteen years, she moved to Ireland and then to India, where she lived for most of her life.</p>
-    </div>
-    <div>
-        <h3>
-            Margaret Mead
-        </h3>
-        <p>Margaret Mead was an American cultural anthropologist who featured frequently as an author and speaker in the mass media during the 1960s and 1970s. She earned her bachelor's degree at Barnard College in New York City and her M.A. and Ph.D. degrees from Columbia University.</p>
-    </div>
-    <div>
-        <h3>About me</h3>
-        <p>My name is Rong Chen and I am a web developer. I have been working in the industry for 10 years and have worked on a variety of projects. I am passionate about web development and love to learn new things. I created this website to showcase my skills and share my knowledge with others.</p>
-    </div> -->
     {% for x in about_info %}
     <div>
         <h3>{{ x.0 }}</h3>
@@ -31,4 +8,8 @@
         <p>{{x.1}}</p>
     </div>
     {% endfor %}
-        {% endblock %}
+    <div>
+        <h3>About me</h3>
+        <p>My name is Rong Chen and I am a web developer. I have been working in the industry for 10 years and have worked on a variety of projects. I am passionate about web development and love to learn new things. I created this website to showcase my skills and share my knowledge with others.</p>
+    </div>
+{% endblock %}
