@@ -1,7 +1,7 @@
 {% extends "quotes/base.html" %}
 {% block content %}
     <h1>About Page</h1>
-    <div>
+    <!-- <div>
 
         <h3>
             Franklin D Roosevelt
@@ -23,5 +23,12 @@
     <div>
         <h3>About me</h3>
         <p>My name is Rong Chen and I am a web developer. I have been working in the industry for 10 years and have worked on a variety of projects. I am passionate about web development and love to learn new things. I created this website to showcase my skills and share my knowledge with others.</p>
+    </div> -->
+    {% for x in about_info %}
+    <div>
+        <h3>{{ x.0 }}</h3>
+        <img src="{{x.2}}" alt="">
+        <p>{{x.1}}</p>
     </div>
+    {% endfor %}
         {% endblock %}
