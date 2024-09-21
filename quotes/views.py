@@ -10,11 +10,10 @@ def home(request):
     '''
     the main page, which will display a picture of a famous or notable person of your choosing and a quote that this person said or wrote. The quote and image will be selected at random from a list of images/quote.
     '''
-    q = random.choice(quotes)
-    i = random.choice(images)
+    q = random.randint(0, len(quotes)-1)
     context = {
-        'quote': q,
-        'image': i,
+        'quote': quotes[q],
+        'image': images[q],
     }
     return render(request, 'quotes/quote.html', context)
 
