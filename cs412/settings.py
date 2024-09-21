@@ -73,6 +73,12 @@ TEMPLATES = [
     },
 ]
 
+STORAGES = {
+    "staticfiles" : {
+        "BACKEND": "whitenoise.storage.CompressedManifestStaticFilesStorage",
+    }
+}
+
 WSGI_APPLICATION = 'cs412.wsgi.application'
 
 
