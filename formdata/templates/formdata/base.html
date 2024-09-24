@@ -1,0 +1,23 @@
+<!-- formdata/templates/formdata/base.html 
+ This is the base page from which all other pages will inherit.
+ Put common code here, specific code in sperate pages
+ -->
+ {% load static %}
+ <html>
+   <head>
+     <link rel="stylesheet" href="{% static 'styles.css' %}" />
+     <title>Form Data</title>
+   </head>
+   <body>
+ 
+     <nav>
+
+     </nav>
+ 
+     {% block content %}
+     <!-- put the interesting (specific stuff) here -->
+     {% endblock %}
+     <hr>
+   </body>
+ </html>
+ 
