@@ -1,0 +1,28 @@
+<!-- restaurant/templates/restaurant/base.html 
+ This is the base page from which all other pages will inherit.
+ Put common code here, specific code in sperate pages
+ -->
+ {% load static %}
+ <html>
+   <head>
+     <link rel="stylesheet" href="{% static 'restaurant_styles.css' %}" />
+     <title>Kura Sushi</title>
+   </head>
+   <body>
+ 
+    <h1>Kura Sushi</h1>
+
+     <nav>
+        <a href="{% url 'restaurant:main' %}">Home Page</a>
+        <a href="{% url 'restaurant:order' %}">Order</a>
+     </nav>
+ 
+     {% block content %}
+     <!-- put the interesting (specific stuff) here -->
+     {% endblock %}
+     <footer>
+         <p>Page created by rongc@bu.edu</p>
+     </footer>
+   </body>
+ </html>
+ 
