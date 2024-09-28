@@ -25,6 +25,17 @@ img {
 
 .order_div * {
     background-color: white;
+    margin-top: 5px;
+}
+
+.toppingsDropdown {
+    display: none;
+    text-align: center;
+}
+
+.drink:checked ~ .toppingsDropdown {
+    display: block;
+    margin: auto;
 }
 
 
