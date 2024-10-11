@@ -18,6 +18,7 @@
     </article>
     <div>
         <h2>Comments:</h2>
+        <h3><a href="{% url 'create_comment' article.pk %}">Create a comment</a></h3>
         {% for c in article.get_comments %}
         <article>
             <div>
