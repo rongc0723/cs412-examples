@@ -27,4 +27,4 @@ class StatusMessage(models.Model):
     profile = models.ForeignKey(Profile, on_delete=models.CASCADE)
     
     def __str__(self):
-        return f'{self.message} by {self.profile.name} at {self.timestamp}'
+        return f'{self.message} by {self.profile.first_name} at {self.timestamp}'

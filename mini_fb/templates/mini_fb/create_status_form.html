@@ -1,0 +1,25 @@
+{% extends "mini_fb/base.html" %}
+
+{% block content %}
+
+<form method="POST">
+    {% csrf_token %}
+    <table>
+        {% for field in form %}
+        <tr>
+            <th>{{field.name}}</th>
+            <td>{{field}}</td>
+        </tr>
+        {% endfor %}
+        <tr>
+            <td></td>
+            <td>
+                <input type="submit" name="Create Status!" value="Create Status!">
+            </td>
+        </tr>
+    </table>
+</form>
+
+
+
+{% endblock %}
