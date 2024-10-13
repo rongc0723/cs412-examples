@@ -3,7 +3,7 @@
 
 from django.urls import path
 from django.conf import settings
-from .views import ShowAllView, ShowProfilePageView
+from .views import ShowAllView, ShowProfilePageView, CreateProfileView
 
 # app_name = 'mini_fb'
 
@@ -11,4 +11,5 @@ from .views import ShowAllView, ShowProfilePageView
 urlpatterns = [
     path('', ShowAllView.as_view(), name='show_all_profiles'), ## main page
     path('profile/<int:pk>', ShowProfilePageView.as_view(), name='show_profile'), ## show one profile
+    path('create_profile/', CreateProfileView.as_view(), name='create_profile'), ## create a new profile
 ]

@@ -4,10 +4,10 @@
 
 <div class="singular_profile">
     <img src="{{profile.profile_image_url}}" alt="profile pic">
-    <h1>{{profile.name}}</h1>
+    <h1>{{profile.first_name}} {{profile.last_name}}</h1>
     <p>{{profile.city}}</p>
     <h3>
-        {{profile.name}}'s Status Messages
+        {{profile.first_name}} {{profile.last_name}}'s Status Messages
     </h3>
     {% for m in profile.get_status_messages %}
     <div>
