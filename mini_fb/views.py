@@ -26,9 +26,6 @@ class CreateProfileView(CreateView):
     ''' A view to create a new profile and save to db'''
     form_class = CreateProfileForm
     template_name = 'mini_fb/create_profile_form.html'
-
-    def get_success_url(self) -> str:
-        return reverse('show_profile', kwargs={'pk': self.object.pk})
     
 class CreateStatusMessageView(CreateView):
     ''' A view to create a new status message and save to db'''

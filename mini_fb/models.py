@@ -18,7 +18,7 @@ class Profile(models.Model):
         return status_messages
     
     def get_absolute_url(self):
-        return reverse('show_profile', kwargs={'pk': self.object.pk})
+        return reverse('show_profile', kwargs={'pk': self.pk})
 
 
 class StatusMessage(models.Model):
