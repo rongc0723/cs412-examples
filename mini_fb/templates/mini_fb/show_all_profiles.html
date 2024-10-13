@@ -22,7 +22,10 @@
             <td>{{ p.last_name }}</td>
             <td>{{ p.city }}</td>
             <td>{{ p.email_address }}</td>
-            <td><img src="{{p.profile_image_url}}" alt="profile pic"></td>
+            <td>
+                <a href="{% url 'show_profile' p.pk %}">
+                    <img src="{{p.profile_image_url}}" alt="profile pic"></td>
+                </a>
         </tr>
         
         {% endfor %}
