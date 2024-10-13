@@ -4,6 +4,10 @@
     font-family: Arial, sans-serif;
 }
 
+nav {
+    padding-bottom: 10px;
+}
+
 table {
     width: 100%;
     border-collapse: collapse;
