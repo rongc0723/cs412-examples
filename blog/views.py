@@ -4,7 +4,7 @@ from django.shortcuts import render
 from .models import Article
 from django.views.generic import ListView, DetailView
 from django.views.generic.edit import CreateView
-from .forms import CreateCommentForm
+from .forms import CreateCommentForm, CreateArticleForm
 from django.urls import reverse
 import random
 from typing import Any
@@ -53,3 +53,10 @@ class CreateCommentView(CreateView):
         article = Article.objects.get(pk=pk)
         context['article'] = article
         return context 
+
+class CreateArticleview(CreateView):
+    form_class = CreateArticleForm
+    template_name = 'blog/create_article_form.html'
+    def form_valid(self, form):
+        print(form.cleaned_data)
+        return super().form_valid(form)

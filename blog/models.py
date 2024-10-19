@@ -1,4 +1,5 @@
 from django.db import models
+from django.urls import reverse
 
 # Create your models here.
 
@@ -16,6 +17,8 @@ class Article(models.Model):
         '''Return all comments for this article'''
         comments = Comment.objects.filter(article=self)
         return comments
+    def get_absolute_url(self):
+        return reverse('article', kwargs={'pk': self.pk})
     
 class Comment(models.Model):
     '''Encapsulate the idea of a comment on an article'''
