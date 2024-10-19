@@ -77,15 +77,15 @@ TEMPLATES = [
     },
 ]
 
-STORAGES = {
-    "default" : {
-        "BACKEND": "django.core.files.storage.FileSystemStorage",
-        "LOCATION": os.path.join(BASE_DIR, "media"),
-    },
-    "staticfiles" : {
-        "BACKEND": "whitenoise.storage.CompressedManifestStaticFilesStorage",
-    }
-}
+# STORAGES = {
+#     "default" : {
+#         "BACKEND": "django.core.files.storage.FileSystemStorage",
+#         "LOCATION": os.path.join(BASE_DIR, "media"),
+#     },
+#     "staticfiles" : {
+#         "BACKEND": "whitenoise.storage.CompressedManifestStaticFilesStorage",
+#     }
+# }
 
 WSGI_APPLICATION = 'cs412.wsgi.application'
 

@@ -3,7 +3,7 @@
 
 from django.urls import path
 from django.conf import settings
-from .views import ShowAllView, RandomArticleView, ArticlePageView, CreateCommentView, CreateArticleview
+from .views import ShowAllView, RandomArticleView, ArticlePageView, CreateCommentView, CreateArticleview, UpdateArticleView
 
 
 # create a list of urls for this app:
@@ -14,4 +14,5 @@ urlpatterns = [
     # path('create_comment', CreateCommentView.as_view(), name='create_comment'),
     path('article/<int:pk>/create_comment', CreateCommentView.as_view(), name='create_comment'),
     path('create_article', CreateArticleview.as_view(), name='create_article'),
+    path('article/<int:pk>/update_article', UpdateArticleView.as_view(), name='update_article'),
 ]

@@ -17,3 +17,11 @@ class CreateArticleForm(forms.ModelForm):
         '''Associate this form with the Article model; select fields'''
         model = Article
         fields = ['title', 'author', 'text', 'image_file']
+
+class UpdateArticleForm(forms.ModelForm):
+    '''A form to update an article in the database'''
+
+    class Meta:
+        '''Associate this form with the Article model; select fields'''
+        model = Article
+        fields = ['title', 'text']
