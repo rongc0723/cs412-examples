@@ -3,7 +3,7 @@ from django.forms import BaseModelForm
 from django.http import HttpResponse
 from django.views.generic import ListView, DetailView, CreateView
 from django.shortcuts import render
-from .models import Profile
+from .models import Profile, StatusMessage, Image
 from .forms import CreateProfileForm, CreateStatusMessageForm
 from django.urls import reverse
 # Create your views here.
@@ -36,6 +36,10 @@ class CreateStatusMessageView(CreateView):
         '''Handle submmission, needs to set foreign key'''
         profile = Profile.objects.get(pk=self.kwargs['pk'])
         form.instance.profile = profile
+        sm = form.save()
+        files = self.request.FILES.getlist('files')
+        for f in files:
+            Image.objects.create(image_file=f, status_message=sm)
         return super().form_valid(form)
 
     def get_success_url(self) -> str:

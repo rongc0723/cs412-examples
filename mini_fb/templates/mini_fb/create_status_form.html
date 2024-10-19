@@ -2,7 +2,7 @@
 
 {% block content %}
 
-<form method="POST">
+<form method="POST" enctype="multipart/form-data">
     {% csrf_token %}
     <table class="status">
         {% for field in form %}
@@ -11,6 +11,12 @@
             <td>{{field}}</td>
         </tr>
         {% endfor %}
+        <tr>
+            <th>Images</th>
+            <td>
+                <input type="file" name="files" multiple>
+            </td>
+        </tr>
     </table>
     <input type="submit" name="Create Status!" value="Create Status!">
 </form>
