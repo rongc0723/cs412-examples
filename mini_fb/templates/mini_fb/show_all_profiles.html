@@ -3,32 +3,13 @@
 {% block content %}
 
 
-<table>
-    <thead>
-        <tr>
-            <th>First Name</th>
-            <th>Last Name</th>
-            <th>City</th>
-            <th>Email Address</th>
-            <th>Profile Pic</th>
-        </tr>
-    </thead>
-    <tbody>
-
-        {% for p in profiles %}
-        <tr>
-            <td>{{ p.first_name }}</td>
-            <td>{{ p.last_name }}</td>
-            <td>{{ p.city }}</td>
-            <td>{{ p.email_address }}</td>
-            <td>
-                <a href="{% url 'show_profile' p.pk %}">
-                    <img src="{{p.profile_image_url}}" alt="profile pic"></td>
-                </a>
-        </tr>
-        
-        {% endfor %}
-    </tbody>
-</table>
+<div class="show_all">
+    {% for p in profiles %}
+    <a href="{% url 'show_profile' p.pk %}">
+        <img src="{{p.profile_image_url}}" alt="profile pic"></td>
+        <h3>{{ p.first_name }} {{ p.last_name }}</h3>
+    </a>        
+    {% endfor %}
+</div>
 
 {% endblock %}

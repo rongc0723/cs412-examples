@@ -3,14 +3,21 @@
 {% block content %}
 
 <h2>Delete Status Message?</h2>
-<p>{{status_message}}</p>
-<form method = 'POST'>
-    {% csrf_token %}
-    <input type='submit' name = 'yes' value= 'yes'>
-</form>
-<form method="GET" action="{% url 'show_profile' status_message.profile.pk %}">
-    <input type='submit' name = 'no' value= 'no'>
-</form>
+<div class="status_message">
+    {% for img in status_message.get_images %}
+    <img src="{{img.image_file.url}}" alt="{{img.image_file.url}}">
+    {% endfor %}
+    <p>Message: {{status_message.message}}</p>
+    <p>Profile: {{status_message.profile.first_name}} {{status_message.profile.last_name}}</p>
+    <p>At: {{status_message.timestamp}}</p>
+</div>
+    <form method = 'POST'>
+        {% csrf_token %}
+        <input type='submit' name = 'yes' value= 'yes'>
+    </form>
+    <form method="GET" action="{% url 'show_profile' status_message.profile.pk %}">
+        <input type='submit' name = 'no' value= 'no'>
+    </form>
 
 
 

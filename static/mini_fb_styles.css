@@ -87,14 +87,22 @@ h1 {
 
 .container {
     display: flex;
+    flex-direction: column;
     flex-wrap: wrap;
     justify-content: space-evenly;
     align-items: center;
+    background-color: #333;
+    margin: auto;
+    width: fit-content;
+    padding: 20px;
+    border-radius: 10px;
 }
 
-.container div {
-    width: 400px;
+.container * {
+    background-color: #333;
+    color: gold;
 }
+
 
 
 .singular_profile a {
@@ -107,6 +115,10 @@ h1 {
     margin: 10px 0;
 }
 
+.singular_profile p {
+    color: gold
+}
+
 nav a {
     text-decoration: none; 
     color: white;
@@ -117,11 +129,11 @@ nav a {
 }
 
 .status_message {
-    background-color: #f9f9f9;
+    background-color: #333;
     padding: 20px;
     border: 1px solid #ddd; 
     border-radius: 10px; 
-    width: 50%;
+    width: 25%;
     margin: 20px auto;
 }
 
@@ -129,12 +141,33 @@ nav a {
     margin: 0;
     padding: 5px 0; 
     font-size: 16px; 
-    color: blue; 
-    background-color: #f9f9f9;
+    color: gold; 
+    background-color: #333;
 }
 
 .status_message img {
     width: 100px;
     height: 100px;
     margin-right: 10px;
+}
+
+
+.show_all {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 20px;
+    padding: 20px;
+}
+
+.show_all img {
+    width: 200px;
+    height: 200px; 
+}
+
+.show_all * {
+    text-decoration: none;
+    background-color: #333;
+    color: gold;
+    padding: 10px;
+    border-radius: 15px;
 }
