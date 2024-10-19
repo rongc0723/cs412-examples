@@ -3,7 +3,7 @@ from django.shortcuts import render
 # Create your views here.
 from .models import Article
 from django.views.generic import ListView, DetailView
-from django.views.generic.edit import CreateView
+from django.views.generic.edit import CreateView, UpdateView
 from .forms import CreateCommentForm, CreateArticleForm, UpdateArticleForm
 from django.urls import reverse
 import random
@@ -60,7 +60,7 @@ class CreateArticleview(CreateView):
     def form_valid(self, form):
         return super().form_valid(form)
 
-class UpdateArticleView(CreateView):
+class UpdateArticleView(UpdateView):
     form_class = UpdateArticleForm
     template_name = 'blog/update_article_form.html'
     model = Article
