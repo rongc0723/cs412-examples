@@ -31,6 +31,9 @@ class StatusMessage(models.Model):
         images = Image.objects.filter(status_message=self)
         return images
 
+    def get_absolute_url(self):
+        return reverse('show_profile', kwargs={'pk': self.profile.pk})
+    
     def __str__(self):
         return f'{self.message} by {self.profile.first_name} at {self.timestamp}'
 

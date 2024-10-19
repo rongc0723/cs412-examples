@@ -20,7 +20,9 @@
     </table>
     <input type="submit" name="Create Status!" value="Create Status!">
 </form>
-
+<form method="GET" action="{% url 'show_profile' profile.pk %}">
+    <input type='submit' name = 'cancel' value= 'Cancel'>
+</form>
 
 
 {% endblock %}

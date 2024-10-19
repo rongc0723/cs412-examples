@@ -96,12 +96,6 @@ h1 {
     width: 400px;
 }
 
-hr {
-    margin: auto;
-    border: 1px solid black;
-    width: 50%;
-
-}
 
 .singular_profile a {
     text-decoration: none; 
@@ -120,4 +114,27 @@ nav a {
     padding: 10px 20px; 
     border-radius: 5px; 
     display: inline-block;
+}
+
+.status_message {
+    background-color: #f9f9f9;
+    padding: 20px;
+    border: 1px solid #ddd; 
+    border-radius: 10px; 
+    width: 50%;
+    margin: 20px auto;
+}
+
+.status_message p {
+    margin: 0;
+    padding: 5px 0; 
+    font-size: 16px; 
+    color: blue; 
+    background-color: #f9f9f9;
+}
+
+.status_message img {
+    width: 100px;
+    height: 100px;
+    margin-right: 10px;
 }

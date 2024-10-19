@@ -18,13 +18,14 @@
     </h3>
 
     {% for m in profile.get_status_messages %}
-    <div>
+    <div class="status_message">
         {% for img in m.get_images %}
         <img src="{{img.image_file.url}}" alt="{{img.image_file.url}}">
         {% endfor %}
         <p>{{m.message}}</p>
         <p>{{m.timestamp}}</p>
-        <hr/>
+        <a href="{% url 'update_status' m.pk %}">Update</a>
+        <a href="{% url 'delete_status' m.pk %}">Delete</a>
     </div>
     {% endfor %}
 </div>

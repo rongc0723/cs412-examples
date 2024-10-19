@@ -1,10 +1,10 @@
 from typing import Any
 from django.forms import BaseModelForm
 from django.http import HttpResponse
-from django.views.generic import ListView, DetailView, CreateView, UpdateView
+from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
 from django.shortcuts import render
 from .models import Profile, StatusMessage, Image
-from .forms import CreateProfileForm, CreateStatusMessageForm, UpdateProfileForm
+from .forms import CreateProfileForm, CreateStatusMessageForm, UpdateProfileForm, UpdateStatusMessageForm
 from django.urls import reverse
 # Create your views here.
 
@@ -58,10 +58,17 @@ class UpdateProfileView(UpdateView):
     template_name = 'mini_fb/update_profile_form.html'
     model = Profile
 
-    # def get_context_data(self, **kwargs: Any) -> dict[str, Any]:
-    #     '''build dict of context data for the view'''
-    #     context = super().get_context_data(**kwargs)
-    #     pk = self.kwargs['pk']
-    #     profile = Profile.objects.get(pk=pk)
-    #     context['profile'] = profile
-    #     return context
+class DeleteStatusMessageView(DeleteView):
+    model = StatusMessage
+    template_name = 'mini_fb/delete_status_form.html'
+    context_object_name = 'status_message'
+
+    def get_success_url(self) -> str:
+        return reverse('show_profile', kwargs={'pk': self.get_object().profile.pk})
+    
+class UpdateStatusMessageView(UpdateView):
+    form_class = UpdateStatusMessageForm
+    template_name = 'mini_fb/update_status_form.html'
+    model = StatusMessage
+    context_object_name = 'status_message'
+

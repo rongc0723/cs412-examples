@@ -2,12 +2,11 @@
 
 {% block content %}
 
-<h2>Update Profile</h2>
-<p>Fill in the form below to update your new profile</p>
+<h2>Update Status Message</h2>
+<p>Fill in the form below to update the status message</p>
 <form method = 'POST'>
     {% csrf_token %}
     <table class="profile">
-
         {% for field in form %}
         <tr>
             <th>{{field.name}}</th>
@@ -15,9 +14,9 @@
         </tr>
         {% endfor %}
     </table>
-    <input type='submit' name = 'update_profile' value= 'Update Profile!'>
+    <input type='submit' name = 'update_sm' value= 'Update Status Message!'>
 </form>
-<form method="GET" action="{% url 'show_profile' profile.pk %}">
+<form method="GET" action="{% url 'show_profile' status_message.profile.pk %}">
     <input type='submit' name = 'cancel' value= 'Cancel'>
 </form>
 
