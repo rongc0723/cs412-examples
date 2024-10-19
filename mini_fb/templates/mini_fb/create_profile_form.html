@@ -18,6 +18,7 @@
     <input type='submit' name = 'Create Profile!' value= 'Create Profile!'>
 </form>
 <form method="GET" action="{% url 'show_all_profiles' %}">
+    {% csrf_token %}
     <input type='submit' name = 'cancel' value= 'Cancel'>
 </form>
 

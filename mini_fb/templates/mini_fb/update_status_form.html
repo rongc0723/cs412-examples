@@ -17,6 +17,7 @@
     <input type='submit' name = 'update_sm' value= 'Update Status Message!'>
 </form>
 <form method="GET" action="{% url 'show_profile' status_message.profile.pk %}">
+    {% csrf_token %}
     <input type='submit' name = 'cancel' value= 'Cancel'>
 </form>
 
