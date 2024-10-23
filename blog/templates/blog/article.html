@@ -26,6 +26,7 @@
                 <p>
                 {{c.text}}
                 </p>
+                <a href="{% url 'delete_comment' c.pk %}">Delete this comment</a>
             </div>
         </article>
         {% endfor %}

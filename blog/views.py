@@ -1,9 +1,9 @@
 from django.shortcuts import render
 
 # Create your views here.
-from .models import Article
+from .models import Article, Comment
 from django.views.generic import ListView, DetailView
-from django.views.generic.edit import CreateView, UpdateView
+from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from .forms import CreateCommentForm, CreateArticleForm, UpdateArticleForm
 from django.urls import reverse
 import random
@@ -64,13 +64,13 @@ class UpdateArticleView(UpdateView):
     form_class = UpdateArticleForm
     template_name = 'blog/update_article_form.html'
     model = Article
-    def form_valid(self, form):
-        return super().form_valid(form)
+
+class DeleteCommentView(DeleteView):
+    template_name = 'blog/delete_comment_form.html'
+    model = Comment
+    context_object_name = 'comment'
+
+    def get_success_url(self) -> str:
+        return reverse('article', kwargs={'pk': self.get_object().article.pk})
+
     
-    def get_context_data(self, **kwargs: Any) -> dict[str, Any]:
-        '''build dict of context data for the view'''
-        context = super().get_context_data(**kwargs)
-        pk = self.kwargs['pk']
-        article = Article.objects.get(pk=pk)
-        context['article'] = article
-        return context
