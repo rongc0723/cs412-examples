@@ -17,6 +17,20 @@
         {{profile.first_name}} {{profile.last_name}}'s Status Messages
     </h3>
 
+    <h3>
+        {{profile.first_name}} {{profile.last_name}}'s Friends
+    </h3>
+    <div class="friends">
+        {% for friend in profile.get_friends %}
+        <div class="friend">
+            <a href="{% url 'show_profile' friend.pk %}">
+            <img src="{{friend.profile_image_url}}" alt="profile pic">
+            <p>{{friend.first_name}} {{friend.last_name}}</p>
+            </a>
+        </div>
+        {% endfor %}
+    </div>
+
     {% for m in profile.get_status_messages %}
     <div class="status_message">
         {% for img in m.get_images %}

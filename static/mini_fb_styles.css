@@ -171,3 +171,41 @@ nav a {
     padding: 10px;
     border-radius: 15px;
 }
+
+.friends {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+    gap: 10px;
+    padding: 10px;
+    background-color: #333;
+    border-radius: 5px;
+}
+
+.friend {
+    text-align: center;
+    background-color: #f9f9f9;
+    padding: 5px;
+    border-radius: 8px;
+}
+
+.friend img {
+    width: 100px;
+    height: 100px;
+}
+
+.friend p {
+    margin-top: 10px;
+    font-size: 1rem;
+    font-weight: bold;
+    color: #333;
+}
+
+.friend a {
+    background-color: transparent;
+}
+
+.friend p {
+    font-size: 1.2rem;
+    color: #333;
+    background-color: #f9f9f9;
+}
