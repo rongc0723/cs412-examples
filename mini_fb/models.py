@@ -43,7 +43,8 @@ class Profile(models.Model):
         friends = self.get_friends()
         # get all profiles except friends and self
         all_profiles = Profile.objects.exclude(pk=self.pk)
-        suggestions = all_profiles.exclude(pk__in=[f.pk for f in friends])
+        friend_pks = [f.pk for f in friends]
+        suggestions = all_profiles.exclude(pk__in=friend_pks)
         return suggestions
     
     def get_news_feed(self):
