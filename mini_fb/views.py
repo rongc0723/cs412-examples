@@ -1,11 +1,12 @@
 from typing import Any
 from django.forms import BaseModelForm
-from django.http import HttpResponse
-from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
+from django.http import HttpRequest, HttpResponse
+from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView, View
 from django.shortcuts import render
 from .models import Profile, StatusMessage, Image
 from .forms import CreateProfileForm, CreateStatusMessageForm, UpdateProfileForm, UpdateStatusMessageForm
 from django.urls import reverse
+from django.shortcuts import redirect
 # Create your views here.
 
 
@@ -54,11 +55,13 @@ class CreateStatusMessageView(CreateView):
         return context
 
 class UpdateProfileView(UpdateView):
+    """A view to update a profile"""
     form_class = UpdateProfileForm
     template_name = 'mini_fb/update_profile_form.html'
     model = Profile
 
 class DeleteStatusMessageView(DeleteView):
+    """A view to delete a status message"""
     model = StatusMessage
     template_name = 'mini_fb/delete_status_form.html'
     context_object_name = 'status_message'
@@ -67,8 +70,23 @@ class DeleteStatusMessageView(DeleteView):
         return reverse('show_profile', kwargs={'pk': self.get_object().profile.pk})
     
 class UpdateStatusMessageView(UpdateView):
+    """A view to update a status message"""
     form_class = UpdateStatusMessageForm
     template_name = 'mini_fb/update_status_form.html'
     model = StatusMessage
     context_object_name = 'status_message'
 
+class CreateFriendView(View):
+    """A view to create a friend relationship"""
+    def dispatch(self, request: HttpRequest, *args: Any, **kwargs: Any) -> HttpResponse:
+        if request.method == 'GET':
+            profile = Profile.objects.get(pk=kwargs['pk'])
+            other_profile = Profile.objects.get(pk=kwargs['other_pk'])
+            profile.add_friend(other_profile)
+            return redirect(reverse('show_profile', kwargs={'pk': profile.pk}))
+
+class ShowFriendSuggestionsView(DetailView):
+    ''' Show friend suggestions for a profile'''
+    model = Profile
+    template_name = 'mini_fb/friend_suggestions.html'
+    context_object_name = 'profile'

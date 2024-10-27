@@ -28,7 +28,24 @@ class Profile(models.Model):
             else:
                 friends.append(relation.profile1)
         return friends
-    
+
+    def add_friend(self, friend):
+        '''Add a friend to this profile'''
+        # check if friendship exists
+        friend_relations = Friend.objects.filter(profile1=self, profile2=friend) | Friend.objects.filter(profile1=friend, profile2=self)
+        if self != friend and len(friend_relations) == 0:
+            friend_relation = Friend(profile1=self, profile2=friend)
+            friend_relation.save()
+
+    def get_friend_suggestions(self):
+        ''' Return list or queryset of possible friends for a profile'''
+        # get all friends
+        friends = self.get_friends()
+        # get all profiles except friends and self
+        all_profiles = Profile.objects.exclude(pk=self.pk)
+        suggestions = all_profiles.exclude(pk__in=[f.pk for f in friends])
+        return suggestions
+
     def get_absolute_url(self):
         return reverse('show_profile', kwargs={'pk': self.pk})
 

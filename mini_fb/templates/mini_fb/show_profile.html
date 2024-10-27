@@ -31,6 +31,8 @@
         {% endfor %}
     </div>
 
+    <a href="{% url 'friend_suggestions' profile.pk %}">Friend Suggestions</a>
+    
     {% for m in profile.get_status_messages %}
     <div class="status_message">
         {% for img in m.get_images %}
