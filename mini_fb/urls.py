@@ -3,7 +3,7 @@
 
 from django.urls import path
 from django.conf import settings
-from .views import ShowAllView, ShowProfilePageView, CreateProfileView, CreateStatusMessageView, UpdateProfileView, DeleteStatusMessageView, UpdateStatusMessageView, CreateFriendView, ShowFriendSuggestionsView
+from .views import ShowAllView, ShowProfilePageView, CreateProfileView, CreateStatusMessageView, UpdateProfileView, DeleteStatusMessageView, UpdateStatusMessageView, CreateFriendView, ShowFriendSuggestionsView, ShowNewsFeedView
 
 # app_name = 'mini_fb'
 
@@ -18,4 +18,5 @@ urlpatterns = [
     path('status/<int:pk>/update/', UpdateStatusMessageView.as_view(), name='update_status'), ## update a status message
     path('profile/<int:pk>/add_friend/<int:other_pk>', CreateFriendView.as_view(), name='add_friend'), ## add a friend
     path('profile/<int:pk>/friend_suggestions', ShowFriendSuggestionsView.as_view(), name='friend_suggestions'), ## show friend suggestions
+    path('profile/<int:pk>/news_feed', ShowNewsFeedView.as_view(), name='news_feed'), ## show news feed
 ]

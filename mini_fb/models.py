@@ -45,6 +45,16 @@ class Profile(models.Model):
         all_profiles = Profile.objects.exclude(pk=self.pk)
         suggestions = all_profiles.exclude(pk__in=[f.pk for f in friends])
         return suggestions
+    
+    def get_news_feed(self):
+        '''Return status messages for each of the friends of a given user 
+        and themself, most recent at top'''
+        friends = self.get_friends()
+        # get all statu messages of friends and self
+        all_status_messages = StatusMessage.objects.filter(profile=self) | StatusMessage.objects.filter(profile__in=friends)
+        # order by timestamp
+        all_status_messages = all_status_messages.order_by('-timestamp')
+        return all_status_messages
 
     def get_absolute_url(self):
         return reverse('show_profile', kwargs={'pk': self.pk})

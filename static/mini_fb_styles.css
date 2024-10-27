@@ -209,3 +209,26 @@ nav a {
     color: #333;
     background-color: #f9f9f9;
 }
+
+.news_feed * {
+    background-color: white;
+    padding: 10px 20px;
+    text-align: left;
+    text-align: left;
+    color: blue;
+}
+
+.header {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    background-color: white;
+}
+
+.header img{
+    border-radius: 50%;
+}
+
+.news_feed hr {
+    padding: 0px;
+}

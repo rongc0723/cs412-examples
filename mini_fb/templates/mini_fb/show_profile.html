@@ -1,6 +1,9 @@
 {% extends "mini_fb/base.html" %}
 
 {% block content %}
+<nav>
+    <a href="{% url 'news_feed' profile.pk %}">News Feed</a>
+</nav>
 
 <div class="singular_profile">
     <div class="container">
