@@ -1,9 +1,15 @@
 from django.db import models
 from django.urls import reverse
+from django.contrib.auth.models import User
 
 # Create your models here.
 
 class Article(models.Model):
+
+    '''each Attribute will be associated with a User'''
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+
+
     title = models.TextField(blank=False)
     author = models.TextField(blank=False)
     text = models.TextField(blank=False)

@@ -1,0 +1,17 @@
+{% extends 'blog/base.html' %}
+
+{% block content %}
+
+<!-- very basic authtentication form -->
+<h1>Login</h1>
+<form method="post" action="{% url 'login' %}" >
+    {% csrf_token %}
+    {{form}}
+    {% if request.GET.next %}
+    <input type="hidden" name="next" value="{{next}}">
+    {% else %}
+    <input type="hidden" name="next" value="{% url 'show_all' %}">
+    {% endif %}
+    <input type="submit" value="Login">
+</form>
+{% endblock %}
