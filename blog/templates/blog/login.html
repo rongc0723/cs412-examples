@@ -2,7 +2,7 @@
 
 {% block content %}
 
-<!-- very basic authtentication form -->
+<!-- very basic log in form -->
 <h1>Login</h1>
 <form method="post" action="{% url 'login' %}" >
     {% csrf_token %}
@@ -14,4 +14,7 @@
     {% endif %}
     <input type="submit" value="Login">
 </form>
+<hr>
+Don't have an account yet? <br>
+<a href="{% url 'register' %}">Register</a>
 {% endblock %}

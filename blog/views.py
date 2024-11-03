@@ -1,3 +1,5 @@
+from django.http import HttpRequest
+from django.http.response import HttpResponse as HttpResponse
 from django.shortcuts import render
 
 # Create your views here.
@@ -9,6 +11,10 @@ from django.urls import reverse
 import random
 from typing import Any
 from django.contrib.auth.mixins import LoginRequiredMixin
+from django.contrib.auth.forms import UserCreationForm
+from django.contrib.auth.models import User
+from django.contrib.auth import login
+from django.shortcuts import redirect
 class ShowAllView(ListView):
     model = Article
 
@@ -95,4 +101,43 @@ class DeleteCommentView(LoginRequiredMixin, DeleteView):
     def get_success_url(self) -> str:
         return reverse('article', kwargs={'pk': self.get_object().article.pk})
 
+class RegistrationView(CreateView):
+    form_class = UserCreationForm
+    template_name = 'blog/register.html'
+
+    def dispatch(self, request: HttpRequest, *args: Any, **kwargs: Any) -> HttpResponse:
+        '''Handle the User creation process'''
+        if request.POST:
+            print(self.request.POST)
+            # reconstruct the UserCreationForm from HTTP POST
+            form = UserCreationForm(request.POST)
+            if not form.is_valid():
+                return super().dispatch(request, *args, **kwargs)
+            # save new User object
+            user = form.save() # creates a new instance of User object in the database
+            print(f"RegistrationView created new user: {user}")
+            # log in the User
+            login(request, user)
+            print(f"RegistrationView logged in new user: {user}")
+
+            # redirect to some page view
+            return redirect(reverse('show_all'))
+
+        # let superclass CreateView handle the HTTP Get:
+        return super().dispatch(request, *args, **kwargs)
     
+    def form_valid(self, form):
+        response = super().form_valid(form)
+        login(self.request, self.object)
+        return response
+    def get_success_url(self):
+        return reverse('show_all')
+    
+    def get_login_url(self) -> str:
+        '''return URL required for login'''
+        return reverse('login')
+    
+    def get_context_data(self, **kwargs: Any) -> dict[str, Any]:
+        '''build dict of context data for the view'''
+        context = super().get_context_data(**kwargs)
+        return context
