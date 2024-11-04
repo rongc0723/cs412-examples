@@ -3,9 +3,8 @@
 {% block content %}
 {% if request.user.is_authenticated and request.user == profile.user%}
 <nav>
-    <a href="{% url 'news_feed' profile.pk %}">News Feed</a>
+    <a href="{% url 'news_feed' %}">News Feed</a>
 </nav>
-{% else %}
 {% endif %}
 
 <div class="singular_profile">
@@ -18,9 +17,8 @@
         </div>
     </div>
     {% if request.user.is_authenticated and request.user == profile.user %}
-    <a href="{% url 'update_profile' profile.pk %}">Update Profile</a>
-    <a href="{% url 'create_status' profile.pk %}">Create a status message</a>
-    {% else %}
+    <a href="{% url 'update_profile' %}">Update Profile</a>
+    <a href="{% url 'create_status' %}">Create a status message</a>
     {% endif %}
     <h3>
         {{profile.first_name}} {{profile.last_name}}'s Status Messages
@@ -40,8 +38,7 @@
         {% endfor %}
     </div>
     {% if request.user.is_authenticated and request.user == profile.user %}
-    <a href="{% url 'friend_suggestions' profile.pk %}">Friend Suggestions</a>
-    {% else %}
+    <a href="{% url 'friend_suggestions' %}">Friend Suggestions</a>
     {% endif %}
     
     {% for m in profile.get_status_messages %}
@@ -51,8 +48,10 @@
         {% endfor %}
         <p>{{m.message}}</p>
         <p>{{m.timestamp}}</p>
+        {% if request.user.is_authenticated and request.user == profile.user %}
         <a href="{% url 'update_status' m.pk %}">Update</a>
         <a href="{% url 'delete_status' m.pk %}">Delete</a>
+        {% endif %}
     </div>
     {% endfor %}
 </div>

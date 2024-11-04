@@ -10,7 +10,7 @@
         <div class="friend">
             <img src="{{f.profile_image_url}}" alt="profile pic"></td>
             <p>{{ f.first_name }} {{ f.last_name }}</p>
-            <a href="{% url 'add_friend' pk=profile.pk other_pk=f.pk %}">Add Friend</a>
+            <a href="{% url 'add_friend' other_pk=f.pk %}">Add Friend</a>
         </div>
         {% endfor %}
     </div>
