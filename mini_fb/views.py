@@ -26,6 +26,14 @@ class ShowProfilePageView(DetailView):
     template_name = 'mini_fb/show_profile.html'
     context_object_name = 'profile'
 
+class ShowPersonalProfileView(DetailView):
+    model = Profile
+    template_name = 'mini_fb/show_profile.html'
+    def get_object(self, queryset: QuerySet[Any] | None = ...) -> Model:
+        user = self.request.user
+        profile = Profile.objects.get(user=user)
+        return profile
+
 class CreateProfileView(CreateView):
     ''' A view to create a new profile and save to db'''
     form_class = CreateProfileForm
