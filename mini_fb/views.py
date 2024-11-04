@@ -10,6 +10,8 @@ from .forms import CreateProfileForm, CreateStatusMessageForm, UpdateProfileForm
 from django.urls import reverse
 from django.shortcuts import redirect
 from django.contrib.auth.mixins import LoginRequiredMixin
+from django.contrib.auth.forms import UserCreationForm
+from django.contrib.auth import login
 # Create your views here.
 
 
@@ -38,7 +40,31 @@ class CreateProfileView(CreateView):
     ''' A view to create a new profile and save to db'''
     form_class = CreateProfileForm
     template_name = 'mini_fb/create_profile_form.html'
-    
+    def get_context_data(self, **kwargs: Any) -> dict[str, Any]:
+        context = super().get_context_data(**kwargs)
+        user_form = UserCreationForm
+        context['user_form'] = user_form
+        return context
+
+    def form_valid(self, form: BaseModelForm) -> HttpResponse:
+        user_form = UserCreationForm(self.request.POST)
+        if user_form.is_valid():
+            user = user_form.save()
+            print(user)
+
+            profile = form.save(commit=False)
+            profile.user = user
+            profile.save()
+            print(profile)
+
+            login(self.request, user)
+            return redirect(reverse('profile'))
+        else:
+            return render(self.request, self.template_name, {'form': form, 'user_form': user_form})
+
+    def get_success_url(self):
+        return reverse('show_all_profiles')
+ 
 class CreateStatusMessageView(LoginRequiredMixin, CreateView):
     ''' A view to create a new status message and save to db'''
     form_class = CreateStatusMessageForm
