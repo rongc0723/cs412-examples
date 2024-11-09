@@ -1,5 +1,5 @@
 from django.db import models
-
+from datetime import datetime
 # Create your models here.
 
 class Voter(models.Model):
@@ -10,10 +10,11 @@ class Voter(models.Model):
     street_name = models.TextField()
     apartment_number = models.TextField()
     zip_code = models.IntegerField()
-    dob = models.TextField()
+    dob = models.DateField()
+    year_of_birth = models.IntegerField()
     date_of_registration = models.TextField()
     party_affiliation = models.TextField()
-    precinct_number = models.IntegerField()
+    precinct_number = models.CharField(max_length=6)
     v20state = models.TextField()
     v21town = models.TextField()
     v21primary = models.TextField()
@@ -37,6 +38,8 @@ def load_data():
     for line in f:
         try:
             fields = line.split(',')
+            dob = datetime.strptime(fields[7], '%m/%d/%Y').date()
+            year_of_birth = dob.year
             # create a new instance of Voter object with this record from CSV
             voter = Voter(first_name=fields[1],
                           last_name=fields[2],
@@ -44,7 +47,8 @@ def load_data():
                           street_name=fields[4],
                           apartment_number=fields[5],
                           zip_code=fields[6],
-                          dob=fields[7],
+                          dob=dob,
+                          year_of_birth=year_of_birth,
                           date_of_registration=fields[8],
                           party_affiliation=fields[9],
                           precinct_number=fields[10],

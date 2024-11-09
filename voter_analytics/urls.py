@@ -4,9 +4,10 @@
 
 from django.urls import path
 from django.conf import settings
-from .views import VotersListView
+from .views import VotersListView, VoterDetailView
 
 # create a list of urls for this app:
 urlpatterns = [
     path('', VotersListView.as_view(), name='voters'), ## main page
+    path('voter/<int:pk>/', VoterDetailView.as_view(), name='voter'), ## show all voters
 ]

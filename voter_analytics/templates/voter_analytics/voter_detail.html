@@ -1,0 +1,42 @@
+<!-- templates/voter_analytics/voters.html -->
+{% extends 'voter_analytics/base.html' %}
+
+{% block content %}
+
+<h1>Voter Details</h1>
+
+<h2>Personal Information</h2>
+<table>
+    <tr>
+        <th>First Name</th>
+        <td>{{ voter.first_name }}</td>
+    </tr>
+    <tr>
+        <th>Last Name</th>
+        <td>{{ voter.last_name }}</td>
+    </tr>
+    <tr>
+        <th>Street Address</th>
+        <td>{{ voter.street_number }} {{ voter.street_name }}, 
+            {% if voter.apartment_number %}
+            Apt {{voter.apartment_number}}, {{voter.zip_code}}
+            {% else %}
+            {{voter.zip_code}}
+            {% endif %}
+        </td>
+    </tr>
+    <tr>
+        <th>Date of Birth</th>
+        <td>{{ voter.dob }}</td>
+    </tr>
+    <tr>
+        <th>Party Affiliation</th>
+        <td>{{ voter.party_affiliation }}</td>
+    </tr>
+    <tr>
+        <th>Voter Score</th>
+        <td>{{ voter.voter_score }}</td>
+    </tr>
+</table>
+
+{% endblock %}

@@ -2,14 +2,11 @@
 {% extends 'voter_analytics/base.html' %}
 
 {% block content %}
+<form method="GET" action="{% url 'voters' %}">
+    {% include 'voter_analytics/form.html' %}
+    <button type="submit">Submit</button>
+</form>
 <div class="container">
-    <div class="row">
-        <form method="get" class="col-md-12">
-            {% csrf_token %}
-            {{ form }}
-            <button type="submit" class="btn btn-primary">Apply Filters</button>
-        </form>
-    </div>
     <h1>Results</h1>
     <div class="row">
         <table>
@@ -22,18 +19,18 @@
                 <th>Voter Score</th>
             </tr>
             {% for v in voters %}
-            <tr>
+            <tr onclick="window.location.href='{% url 'voter' v.pk %}'">
                 <td>{{ v.first_name }}</td>
                 <td>{{ v.last_name }}</td>
-                {% if v.apartment_number %}
-                <td>{{ v.street_number }} {{ v.street_name }}, 
-                    Apt {{v.apartment_number}}, {{v.zip_code}}</td>
-                {% else %}
-                <td>{{ v.street_number }} {{ v.street_name }}, {{v.zip_code}}</td>
-                {% endif %}
-                <td>{{ v.dob }}</td>
-                <td>{{ v.party_affiliation }}</td>
-                <td>{{ v.voter_score }}
+                    {% if v.apartment_number %}
+                    <td>{{ v.street_number }} {{ v.street_name }}, 
+                        Apt {{v.apartment_number}}, {{v.zip_code}}</td>
+                        {% else %}
+                        <td>{{ v.street_number }} {{ v.street_name }}, {{v.zip_code}}</td>
+                        {% endif %}
+                        <td>{{ v.dob }}</td>
+                        <td>{{ v.party_affiliation }}</td>
+                        <td>{{ v.voter_score }}
             </tr>
             {% endfor %}
             

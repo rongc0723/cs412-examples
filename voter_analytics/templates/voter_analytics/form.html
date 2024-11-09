@@ -1,0 +1,53 @@
+
+<h2>Filters</h2>
+<!-- party affil -->
+    <label for="party_affiliation">Party Affiliations</label>"
+    <select name="party_affiliation" id="party_affiliation">
+        <option value="">Select Party Affiliation</option>
+        {% for p in party_affiliations %}
+        <option value="{{ p }}">{{ p }}</option>
+        {% endfor %}
+    </select>
+    
+<!-- min year -->
+    <label for="min_year">Min Year</label>
+    <select name="min_year" id="min_year">
+        <option value="">Select Year</option>
+        {% for y in year_range %}
+        <option value="{{ y }}">{{ y }}</option>
+        {% endfor %}
+    </select>
+
+<!-- min year -->
+<label for="max_year">Max Year</label>
+<select name="max_year" id="max_year">
+    <option value="">Select Year</option>
+    {% for y in year_range %}
+    <option value="{{ y }}">{{ y }}</option>
+    {% endfor %}
+</select> 
+<!-- voter score -->
+    <label for="voter_score">Voter Score</label>
+    <select name="voter_score" id="voter_score">
+        <option value="">Voter Score</option>
+        {% for s in voter_scores %}
+        <option value="{{ s }}">{{ s }}</option>
+        {% endfor %}
+    </select>
+
+<!-- voted in past elections -->
+    <label for="voted_in_election">Voted in Elections</label>
+        {% for v in voted_in_election %}
+        <input type="checkbox" name="voted_in_election" value="{{v}}">
+        {% if v == 'v20state' %}
+        <label for="v20state">2020 State Election</label>
+        {% elif v == 'v21town' %}
+        <label for="v21town">2021 Town Election</label>
+        {% elif v == 'v21primary' %}
+        <label for="v21primary">2021 Primary Election</label>
+        {% elif v == 'v22general' %}
+        <label for="v22general">2022 General Election</label>
+        {% elif v == 'v23town' %}
+        <label for="v23town">2023 Town Election</label>
+        {% endif %}        
+        {% endfor %}
