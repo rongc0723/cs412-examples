@@ -3,9 +3,16 @@
 
 {% block content %}
 
-<h1>Voter Details</h1>
+<h2>Voter Details</h1>
 
-<h2>Personal Information</h2>
+    <!-- first_name = models.TextField()
+    v20state = models.TextField()
+    v21town = models.TextField()
+    v21primary = models.TextField()
+    v22general = models.TextField()
+    v23town = models.TextField()
+    voter_score = models.IntegerField() -->
+<h3>Personal Information</h2>
 <table>
     <tr>
         <th>First Name</th>
@@ -16,26 +23,63 @@
         <td>{{ voter.last_name }}</td>
     </tr>
     <tr>
+        <th>Date of Birth</th>
+        <td>{{ voter.dob }}</td>
+    </tr>
+    <tr>
         <th>Street Address</th>
         <td>{{ voter.street_number }} {{ voter.street_name }}, 
             {% if voter.apartment_number %}
-            Apt {{voter.apartment_number}}, {{voter.zip_code}}
-            {% else %}
-            {{voter.zip_code}}
+            Apt {{voter.apartment_number}}
             {% endif %}
+            <a href="https://www.google.com/maps/search/?api=1&query={{ voter.street_number }}+{{ voter.street_name }}+{{ voter.zip_code }}" target="_blank">
+                View on Google Maps
+            </a>
         </td>
+    </tr>
+    <tr>
+        <th>Zip Code</th>
+        <td>{{ voter.zip_code }}</td>
     </tr>
     <tr>
         <th>Date of Birth</th>
         <td>{{ voter.dob }}</td>
     </tr>
     <tr>
+        <th>Date of Registration</th>
+        <td>{{ voter.date_of_registration }}</td>
+    </tr>
+    <tr>
         <th>Party Affiliation</th>
         <td>{{ voter.party_affiliation }}</td>
     </tr>
     <tr>
+        <th>Precint Number</th>
+        <td>{{ voter.precinct_number }}</td>
+    </tr>
+    <tr>
         <th>Voter Score</th>
         <td>{{ voter.voter_score }}</td>
+    </tr>
+    <tr>
+        <th>Voted in 2020 State Elections</th>
+        <td>{{ voter.v20state }}</td>
+    </tr>
+    <tr>
+        <th>Voted in 2021 Town Elections</th>
+        <td>{{ voter.v21town }}</td>
+    </tr>
+    <tr>
+        <th>Voted in 2021 Primary Elections</th>
+        <td>{{ voter.v21primary }}</td>
+    </tr>
+    <tr>
+        <th>Voted in 2022 General Elections</th>
+        <td>{{ voter.v22general }}</td>
+    </tr>
+    <tr>
+        <th>Voted in 2023 Town Elections</th>
+        <td>{{ voter.v23town }}</td>
     </tr>
 </table>
 

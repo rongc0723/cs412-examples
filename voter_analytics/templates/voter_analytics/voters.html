@@ -4,11 +4,11 @@
 {% block content %}
 <form method="GET" action="{% url 'voters' %}">
     {% include 'voter_analytics/form.html' %}
-    <button type="submit">Submit</button>
+    <button type="submit">Filter</button>
 </form>
-<div class="container">
+<div>
     <h1>Results</h1>
-    <div class="row">
+    <div>
         <table>
             <tr>
                 <th>First Name</th>
@@ -37,9 +37,9 @@
 
         </table>
         </div>
-        <div class="row">
+        <div class="pagination">
             {% if is_paginated %}
-            <ul class="pagination">
+            <ul>
                 {% if page_obj.has_previous %}
                     <li>
                         <span><a href="?page={{ page_obj.previous_page_number }}">Previous</a></span>

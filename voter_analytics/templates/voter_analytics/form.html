@@ -1,7 +1,7 @@
 
 <h2>Filters</h2>
 <!-- party affil -->
-    <label for="party_affiliation">Party Affiliations</label>"
+    <label for="party_affiliation">Party Affiliations</label>
     <select name="party_affiliation" id="party_affiliation">
         <option value="">Select Party Affiliation</option>
         {% for p in party_affiliations %}
@@ -36,18 +36,24 @@
     </select>
 
 <!-- voted in past elections -->
+<div class="form-group">
     <label for="voted_in_election">Voted in Elections</label>
+    <div class="checkbox-group">
         {% for v in voted_in_election %}
-        <input type="checkbox" name="voted_in_election" value="{{v}}">
-        {% if v == 'v20state' %}
-        <label for="v20state">2020 State Election</label>
-        {% elif v == 'v21town' %}
-        <label for="v21town">2021 Town Election</label>
-        {% elif v == 'v21primary' %}
-        <label for="v21primary">2021 Primary Election</label>
-        {% elif v == 'v22general' %}
-        <label for="v22general">2022 General Election</label>
-        {% elif v == 'v23town' %}
-        <label for="v23town">2023 Town Election</label>
-        {% endif %}        
+        <div class="form-group-inline">
+            <input type="checkbox" id="{{ v }}" name="voted_in_election" value="{{ v }}">
+            {% if v == 'v20state' %}
+            <label for="v20state">2020 State Election</label>
+            {% elif v == 'v21town' %}
+            <label for="v21town">2021 Town Election</label>
+            {% elif v == 'v21primary' %}
+            <label for="v21primary">2021 Primary Election</label>
+            {% elif v == 'v22general' %}
+            <label for="v22general">2022 General Election</label>
+            {% elif v == 'v23town' %}
+            <label for="v23town">2023 Town Election</label>
+            {% endif %}
+        </div>
         {% endfor %}
+    </div>
+</div>
