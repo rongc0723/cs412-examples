@@ -1,0 +1,65 @@
+<!-- templates/voter_analytics/voters.html -->
+{% extends 'voter_analytics/base.html' %}
+
+{% block content %}
+<div class="container">
+    <div class="row">
+        <form method="get" class="col-md-12">
+            {% csrf_token %}
+            {{ form }}
+            <button type="submit" class="btn btn-primary">Apply Filters</button>
+        </form>
+    </div>
+    <h1>Results</h1>
+    <div class="row">
+        <table>
+            <tr>
+                <th>First Name</th>
+                <th>Last Name</th>
+                <th>Street Address</th>
+                <th>Date of Birth</th>
+                <th>Party Affiliation</th>
+                <th>Voter Score</th>
+            </tr>
+            {% for v in voters %}
+            <tr>
+                <td>{{ v.first_name }}</td>
+                <td>{{ v.last_name }}</td>
+                {% if v.apartment_number %}
+                <td>{{ v.street_number }} {{ v.street_name }}, 
+                    Apt {{v.apartment_number}}, {{v.zip_code}}</td>
+                {% else %}
+                <td>{{ v.street_number }} {{ v.street_name }}, {{v.zip_code}}</td>
+                {% endif %}
+                <td>{{ v.dob }}</td>
+                <td>{{ v.party_affiliation }}</td>
+                <td>{{ v.voter_score }}
+            </tr>
+            {% endfor %}
+            
+
+        </table>
+        </div>
+        <div class="row">
+            {% if is_paginated %}
+            <ul class="pagination">
+                {% if page_obj.has_previous %}
+                    <li>
+                        <span><a href="?page={{ page_obj.previous_page_number }}">Previous</a></span>
+                 
+                    </li>
+                {% endif %}
+                    <li class="">
+                        <span>Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}.</span>
+                    </li>
+                {% if page_obj.has_next %}
+                    <li>
+                        <span><a href="?page={{ page_obj.next_page_number }}">Next</a></span>
+                    </li>
+                {% endif %}
+                </ul>
+            {% endif %}
+        </div>
+    </div>
+    
+{% endblock %}
