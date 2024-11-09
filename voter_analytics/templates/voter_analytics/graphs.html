@@ -1,0 +1,13 @@
+{% extends 'voter_analytics/base.html' %}
+
+{% block content %}
+<form method="GET" action="{% url 'graphs' %}">
+    {% include 'voter_analytics/form.html' %}
+    <button type="submit">Filter</button>
+</form>
+
+{{histogram_div|safe}}
+{{pie_div|safe}}
+{{bar_div|safe}}
+
+{% endblock %}
