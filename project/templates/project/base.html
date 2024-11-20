@@ -1,0 +1,30 @@
+<!-- mini_fb/templates/mini_fb/base.html 
+ This is the base page from which all other pages will inherit.
+ Put common code here, specific code in sperate pages
+ -->
+ {% load static %}
+ <html>
+   <head>
+     <link rel="stylesheet" href="{% static 'project.css' %}" />
+     <title>Mini FB</title>
+   </head>
+   <body>
+ 
+    <h1>Thrift</h1>
+     <nav>
+     </nav>
+        <a href="{% url 'show_all_items' %}">All Items</a>
+             <p>
+                {% if request.user.is_authenticated %}
+                Logged in user: {{ request.user }}.
+                {% else %}
+                Not logged in.
+                {% endif %}
+            </p>
+     {% block content %}
+     <!-- put the interesting (specific stuff) here -->
+     {% endblock %}
+
+   </body>
+ </html>
+ 

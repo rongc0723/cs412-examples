@@ -32,6 +32,9 @@ class Item(models.Model):
     def __str__(self):
         return f'{self.item_name} posting by {self.seller} posted on {self.timestamp.strftime("%m/%d/%Y, %H:%M:%S")}'
 
+    def get_images(self):
+        return Image.objects.filter(item=self)
+
 class Image(models.Model):
     """Model for an image"""
     image_file = models.ImageField(blank=False)

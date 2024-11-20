@@ -1,0 +1,17 @@
+{% extends 'project/base.html' %}
+
+
+{% block content %}
+<h2>Item</h2>
+<h3>{{ item.item_name }}</h3>
+<p>{{ item.description }}</p>
+<p>Category: {{ item.type_of_item }}</p>
+<p>Price: ${{ item.price }}</p>
+<p>Seller: {{ item.seller.username }}</p>
+<p>Posted: {{ item.timestamp }}</p>
+
+{% for img in item.get_images %}
+<img src="{{ img.image_file.url }}" alt="{{ img.image_file.url }}">
+{% endfor %}
+
+{% endblock %}
