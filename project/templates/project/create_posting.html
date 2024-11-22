@@ -1,0 +1,25 @@
+
+{% extends 'project/base.html' %}
+
+{% block content %}
+<h2>Create a Posting</h2>
+<form method="POST" enctype="multipart/form-data">
+    {% csrf_token %}
+    <table class="post-item">
+        {% for field in form %}
+        <tr>
+            <th>{{field.name}}</th>
+            <td>{{field}}</td>
+        </tr>
+        {% endfor %}
+        <tr>
+            <th>Images</th>
+            <td>
+                <input type="file" name="files" multiple>
+            </td>
+        </tr>
+    </table>
+    <input type="submit" name="Create Listing!" value="Create Listing!">
+</form>
+
+{% endblock %}

@@ -1,0 +1,20 @@
+{% extends 'project/base.html' %}
+
+
+{% block content %}
+<h2>Seller</h2>
+<h3>{{ seller.username }}</h3>
+<p>Items for sale: {{ seller.item_set.count }}</p>
+<p>Member since: {{ seller.created_at }}</p>
+<p>Rating: {{ seller.get_ratings }}</p>
+<p>City: {{ seller.city }}</p>
+<p>Email: {{ seller.email_address }}</p>
+<div class="item-images">
+    {% if seller.profile_image_url.url %}
+        <img src="{{ seller.profile_image_url.url }}" alt="Image of {{ seller.username }}">
+    {% else %}
+        <img src="https://static.vecteezy.com/system/resources/previews/004/141/669/non_2x/no-photo-or-blank-image-icon-loading-images-or-missing-image-mark-image-not-available-or-image-coming-soon-sign-simple-nature-silhouette-in-frame-isolated-illustration-vector.jpg" alt="No image available">
+    {% endif %}
+</div>
+
+{% endblock %}

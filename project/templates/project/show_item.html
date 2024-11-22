@@ -3,15 +3,40 @@
 
 {% block content %}
 <h2>Item</h2>
-<h3>{{ item.item_name }}</h3>
-<p>{{ item.description }}</p>
-<p>Category: {{ item.type_of_item }}</p>
-<p>Price: ${{ item.price }}</p>
-<p>Seller: {{ item.seller.username }}</p>
-<p>Posted: {{ item.timestamp }}</p>
+<div class="singular-item">
+    <div>
 
-{% for img in item.get_images %}
-<img src="{{ img.image_file.url }}" alt="{{ img.image_file.url }}">
-{% endfor %}
+        {% for img in item.get_images %}
+        <img src="{{ img.image_file.url }}" alt="{{ img.image_file.url }}">
+        {% endfor %}
+    </div>
+    <div>
 
+        <h3>{{ item.item_name }}
+            {% if item.is_sold %}
+            <span class="sold">SOLD
+            </span>
+            {% endif %}
+        </h3>
+        <p>{{ item.description }}</p>
+        <p>Category: {{ item.type_of_item }}</p>
+        <p>Price: ${{ item.price }}</p>
+        <p>
+            Seller: 
+            <a href="{% url 'show_seller' item.seller.pk %}">
+                {{ item.seller.username }}</p>
+            </a>
+            <p>Posted: {{ item.timestamp }}</p>
+        </div>
+</div>
+<h2>Review</h2>
+<div class="reviews">
+    {% for review in item.get_review %}
+    <div class="review">
+        <p>{{ review.review_text }}</p>
+        <p>Rating: {{ review.rating }}</p>
+        <p>Posted by: {{ review.reviewer.username }}</p>
+        <p>Posted: {{ review.timestamp }}</p>
+    </div>
+    {% endfor %}
 {% endblock %}

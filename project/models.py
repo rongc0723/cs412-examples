@@ -12,12 +12,20 @@ class Profile(models.Model):
     email_address = models.EmailField(blank=False)
     city = models.CharField(max_length=30, blank=True)
     phone_number = models.CharField(max_length=30, blank=True)
-    profile_image_url = models.URLField(blank=True)
+    profile_image_url = models.ImageField(blank=True)
+    created_at = models.DateTimeField(auto_now_add=True)
 
     user = models.OneToOneField(User, on_delete=models.CASCADE, related_name='project_profile')
 
     def __str__(self):
         return self.username + ': ' + self.first_name + ' ' + self.last_name
+
+    def get_ratings(self):
+        reviews = Review.objects.filter(seller=self)
+        ratings = [review.rating for review in reviews]
+        if len(ratings) == 0:
+            return 0
+        return sum(ratings) / len(ratings)
 
 class Item(models.Model):
     """Model for an item"""
@@ -35,6 +43,9 @@ class Item(models.Model):
     def get_images(self):
         return Image.objects.filter(item=self)
 
+    def get_review(self):
+        return Review.objects.filter(item=self)
+
 class Image(models.Model):
     """Model for an image"""
     image_file = models.ImageField(blank=False)
@@ -42,7 +53,7 @@ class Image(models.Model):
     item = models.ForeignKey(Item, on_delete=models.CASCADE)
     
     def __str__(self):
-        return f'{self.image_file}'
+        return f'Image for {self.item}'
 
 class Review(models.Model):
     """Model for a review"""

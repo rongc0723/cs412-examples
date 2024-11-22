@@ -3,8 +3,10 @@
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
     grid-gap: 10px;
-    padding: 10px;
+    padding: 20px;
+    row-gap: 30px;
 }
+
 
 .item {
     border: 1px solid black;
@@ -29,4 +31,19 @@
 .item-link:hover .item {
     background-color: #f0f0f0;
     transform: translateY(-10px);
+}
+
+.sold {
+    color: red;
+}
+
+.singular-item {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+.singular-item img {
+    width: 400px;
+    height: auto;
 }
