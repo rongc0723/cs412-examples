@@ -93,22 +93,27 @@ class CreateProfileView(CreateView):
     form_class = CreateProfileForm
     template_name = 'project/create_profile_form.html'
     def get_context_data(self, **kwargs: Any) -> dict[str, Any]:
+        print("get context data")
         context = super().get_context_data(**kwargs)
-        user_form = UserCreationForm
-        context['user_form'] = user_form
+        if 'user_form' not in context:
+            user_form = UserCreationForm
+            context['user_form'] = user_form
         return context
+    
+    def form_invalid(self, form: BaseModelForm) -> HttpResponse:
+        print("form is invalid")
+        print(form.errors)
+        return super().form_invalid(form)
 
     def form_valid(self, form: BaseModelForm) -> HttpResponse:
+        print("form is valid")
         user_form = UserCreationForm(self.request.POST)
         if user_form.is_valid():
             user = user_form.save()
-            print(user)
-
             profile = form.save(commit=False)
             profile.user = user
             profile.save()
             print(profile)
-
             login(self.request, user)
             return redirect(reverse('profile'))
         else:
