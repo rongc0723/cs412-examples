@@ -3,7 +3,7 @@
 
 from django.urls import path
 from django.conf import settings
-from .views import ShowAllItemsView, ShowItemView, CreatePostingView, ShowAllUsersView, ShowUserView, ShowPersonalProfileView
+from .views import ShowAllItemsView, ShowItemView, CreatePostingView, ShowAllUsersView, ShowUserView, ShowPersonalProfileView, CreateProfileView
 from django.contrib.auth import views as auth_views
 
 
@@ -17,4 +17,5 @@ urlpatterns = [
     path('profile/', ShowPersonalProfileView.as_view(), name='profile'),
     path('logout/', auth_views.LogoutView.as_view(next_page='show_all_items'), name='project_logout'),
     path('login/', auth_views.LoginView.as_view(template_name='project/login.html'), name='project_login'),
+    path('create_profile_project/', CreateProfileView.as_view(), name='create_profile_project'),
 ]

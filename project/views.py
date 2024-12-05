@@ -13,6 +13,10 @@ from django.views.generic import ListView, DetailView, CreateView
 from .models import Item
 from .forms import CreateItemForm
 from django.contrib.auth.mixins import LoginRequiredMixin
+from django.contrib.auth.forms import UserCreationForm
+from .forms import CreateProfileForm
+from django.contrib.auth import login
+from django.shortcuts import redirect
 
 
 class ShowAllItemsView(ListView):
@@ -83,3 +87,32 @@ class CreatePostingView(LoginRequiredMixin, CreateView):
     
     def get_success_url(self) -> str:
         return reverse('show_item', kwargs={'pk': self.object.pk})
+
+class CreateProfileView(CreateView):
+    ''' A view to create a new profile and save to db'''
+    form_class = CreateProfileForm
+    template_name = 'project/create_profile_form.html'
+    def get_context_data(self, **kwargs: Any) -> dict[str, Any]:
+        context = super().get_context_data(**kwargs)
+        user_form = UserCreationForm
+        context['user_form'] = user_form
+        return context
+
+    def form_valid(self, form: BaseModelForm) -> HttpResponse:
+        user_form = UserCreationForm(self.request.POST)
+        if user_form.is_valid():
+            user = user_form.save()
+            print(user)
+
+            profile = form.save(commit=False)
+            profile.user = user
+            profile.save()
+            print(profile)
+
+            login(self.request, user)
+            return redirect(reverse('profile'))
+        else:
+            return render(self.request, self.template_name, {'form': form, 'user_form': user_form})
+
+    def get_success_url(self):
+        return reverse('show_all_users')

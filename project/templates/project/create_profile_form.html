@@ -1,0 +1,36 @@
+{% extends "project/base.html" %}
+
+{% block content %}
+
+<h2>Create a Profile</h2>
+<div class="registration">
+    <p>Fill in the form below to create your new profile</p>
+    <form method = 'POST'>
+        {% csrf_token %}
+        <table class="profile">
+            {% for field in user_form %}
+            <tr>
+                <th>{{field.name}}</th>
+                <td>{{field}}</td>
+            </tr>
+            {% endfor %}
+            
+            
+        {% for field in form %}
+        <tr>
+            <th>{{field.name}}</th>
+            <td>{{field}}</td>
+        </tr>
+        {% endfor %}
+    </table>
+    
+    <input type='submit' name = 'Create Profile!' value= 'Create Profile!'>
+</form>
+<form method="GET" action="{% url 'show_all_users' %}">
+    {% csrf_token %}
+    <input type='submit' name = 'cancel' value= 'Cancel'>
+</form>
+
+</div>
+
+{% endblock %}

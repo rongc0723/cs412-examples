@@ -12,7 +12,7 @@ class Profile(models.Model):
     email_address = models.EmailField(blank=False)
     city = models.CharField(max_length=30, blank=True)
     phone_number = models.CharField(max_length=30, blank=True)
-    profile_image_url = models.ImageField(blank=True)
+    profile_picture = models.ImageField(blank=True)
     created_at = models.DateTimeField(auto_now_add=True)
 
     user = models.OneToOneField(User, on_delete=models.CASCADE, related_name='project_profile')
