@@ -6,25 +6,34 @@
  <html>
    <head>
      <link rel="stylesheet" href="{% static 'project.css' %}" />
-     <title>Mini FB</title>
+     <title>Thrift</title>
+     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
    </head>
    <body>
- 
-    <h1>Thrift</h1>
-     <nav>
-     </nav>
-        <a href="{% url 'show_all_items' %}">All Items</a>
-        {% if request.user.is_authenticated %}
-            <a href="{% url 'create_posting' %}">Sell An Item</a>
-            <a href="{% url 'show_all_sellers' %}">All Sellers</a>
+      <nav>
+       <a href="{% url 'show_all_items' %}">Browse All Items For Sale</a>
+       {% if request.user.is_authenticated %}
+       <a href="{% url 'create_posting' %}">Sell An Item</a>
+       <a href="{% url 'show_all_users' %}">View All Users</a>
+       <a href="{% url 'profile'%} ">Profile</a>
+       <div>
+         <p>
+           Logged in user: {{ request.user }}.
+         </p>
+         <form method="POST" action="{% url 'project_logout' %}">
+           {% csrf_token %}
+           <input type="submit" value="Logout">
+          </form>
+        </div>
+        {% else %}
+        <div>
+          <p>
+            Not logged in.
+          </p>
+          <a href="{% url 'project_login' %}">Login</a>
+        </div>
         {% endif %}
-             <p>
-                {% if request.user.is_authenticated %}
-                Logged in user: {{ request.user }}.
-                {% else %}
-                Not logged in.
-                {% endif %}
-            </p>
+      </nav>
      {% block content %}
      <!-- put the interesting (specific stuff) here -->
      {% endblock %}

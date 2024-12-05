@@ -1,0 +1,17 @@
+
+<h3>Filters</h3>
+<form action="{% url 'show_all_items' %}">
+    <label for="sort_by">Sort By:</label>
+    <select name="sort_by" id="sort_by">
+        <option value=""></option>
+      <option value="price_asc">Price: Low to High</option>
+      <option value="price_desc">Price: High to Low</option>
+      <option value="date_new">Date: Newest</option>
+      <option value="date_old">Date: Oldest</option>
+    </select>
+    <label for="include_sold">
+        <input type="checkbox" name="include_sold" id="include_sold">
+        Include Sold Items
+    </label>
+    <button type="submit">Apply Filters</button>
+</form>

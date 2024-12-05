@@ -1,14 +1,18 @@
+from typing import Any
 from django.forms import BaseModelForm
+from django.db.models import QuerySet
 from django.http import HttpResponse
 from django.shortcuts import render
 from django.urls import reverse
 from .models import Item, Profile, Image
+from django.db.models import Model
 
 # Create your views here.
 
 from django.views.generic import ListView, DetailView, CreateView
 from .models import Item
 from .forms import CreateItemForm
+from django.contrib.auth.mixins import LoginRequiredMixin
 
 
 class ShowAllItemsView(ListView):
@@ -18,24 +22,51 @@ class ShowAllItemsView(ListView):
 
     template_name = 'project/show_all_items.html'
 
+    def get_queryset(self):
+        qs = super().get_queryset().order_by('-timestamp')
+        qs = qs.filter(is_sold=False)
+        if self.request.GET.get('include_sold') == 'on':
+            qs = Item.objects.all()
+        if 'sort_by' in self.request.GET:
+            sort_by = self.request.GET['sort_by']
+            if sort_by == 'price_asc':
+                qs = qs.order_by('price')
+            elif sort_by == 'price_desc':
+                qs = qs.order_by('-price')
+            elif sort_by == 'date_new':
+                qs = qs.order_by('-timestamp')
+            elif sort_by == 'date_old':
+                qs = qs.order_by('timestamp')
+        return qs
+            
+
 class ShowItemView(DetailView):
     model = Item
     template_name = 'project/show_item.html'
     context_object_name = 'item'
 
-class ShowAllSellersView(ListView):
+class ShowAllUsersView(ListView):
     model = Profile
 
-    context_object_name = 'sellers'
+    context_object_name = 'users'
 
-    template_name = 'project/show_all_sellers.html'
+    template_name = 'project/show_all_users.html'
 
-class ShowSellerView(DetailView):
+class ShowUserView(DetailView):
     model = Profile
-    template_name = 'project/show_seller.html'
-    context_object_name = 'seller'
+    template_name = 'project/show_user.html'
+    context_object_name = 'user'
 
-class CreatePostingView(CreateView):
+class ShowPersonalProfileView(LoginRequiredMixin, DetailView):
+    model = Profile
+    template_name = 'project/show_profile.html'
+
+    def get_object(self, queryset: QuerySet[Any] | None = ...) -> Model:
+        user = self.request.user
+        profile = Profile.objects.get(user=user)
+        return profile
+
+class CreatePostingView(LoginRequiredMixin, CreateView):
     form_class = CreateItemForm
     template_name = 'project/create_posting.html'
     

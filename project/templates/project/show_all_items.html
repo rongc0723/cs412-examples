@@ -3,7 +3,7 @@
 
 {% block content %}
 <h2>Items for sale</h2>
-
+{% include 'project/filter.html' %}
 <div class="items-container">
     {% for item in items %}
     <a href="{% url 'show_item' item.pk %}" class="item-link">

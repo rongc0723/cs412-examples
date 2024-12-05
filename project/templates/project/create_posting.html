@@ -1,11 +1,10 @@
-
 {% extends 'project/base.html' %}
 
 {% block content %}
-<h2>Create a Posting</h2>
-<form method="POST" enctype="multipart/form-data">
+<h2 class="create-post-title">Create a Posting</h2>
+<form method="POST" enctype="multipart/form-data" class="create-post-form">
     {% csrf_token %}
-    <table class="post-item">
+    <table class="create-post-table">
         {% for field in form %}
         <tr>
             <th>{{field.name}}</th>
@@ -15,11 +14,10 @@
         <tr>
             <th>Images</th>
             <td>
-                <input type="file" name="files" multiple>
+                <input type="file" name="files" multiple class="create-post-file">
             </td>
         </tr>
     </table>
-    <input type="submit" name="Create Listing!" value="Create Listing!">
+    <input type="submit" name="Create Listing!" value="Create Listing!" class="create-post-submit">
 </form>
-
 {% endblock %}

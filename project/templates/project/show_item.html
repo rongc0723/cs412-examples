@@ -2,34 +2,40 @@
 
 
 {% block content %}
-<h2>Item</h2>
-<div class="singular-item">
+<h2>{{ item.item_name }}
+    {% if item.is_sold %}
+    <span class="sold">SOLD
+    </span>
+    {% endif %}
+</h2>
+<div class="item-page">
     <div>
-
         {% for img in item.get_images %}
         <img src="{{ img.image_file.url }}" alt="{{ img.image_file.url }}">
         {% endfor %}
     </div>
     <div>
-
-        <h3>{{ item.item_name }}
-            {% if item.is_sold %}
-            <span class="sold">SOLD
-            </span>
-            {% endif %}
-        </h3>
-        <p>{{ item.description }}</p>
+        <p>Description: {{ item.description }}</p>
         <p>Category: {{ item.type_of_item }}</p>
         <p>Price: ${{ item.price }}</p>
         <p>
             Seller: 
-            <a href="{% url 'show_seller' item.seller.pk %}">
-                {{ item.seller.username }}</p>
+            <a href="{% url 'show_user' item.seller.pk %}">
+                {{ item.seller.username }}
             </a>
+        </p>
             <p>Posted: {{ item.timestamp }}</p>
-        </div>
+            {% if item.is_sold %}
+            <p>Sold to: 
+                <a href="{% url 'show_user' item.buyer.pk %}">
+                    {{ item.buyer.username }}
+                </a>
+            </p>
+            {% endif %}
+    </div>
 </div>
 <h2>Review</h2>
+{% if item.get_review %}
 <div class="reviews">
     {% for review in item.get_review %}
     <div class="review">
@@ -39,4 +45,7 @@
         <p>Posted: {{ review.timestamp }}</p>
     </div>
     {% endfor %}
+{% else %}
+<h3>No reviews yet</h3>
+{% endif %}
 {% endblock %}

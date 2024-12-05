@@ -36,6 +36,7 @@ class Item(models.Model):
     description = models.TextField(blank=False)
     price = models.DecimalField(max_digits=6, decimal_places=2, blank=False)
     is_sold = models.BooleanField(default=False)
+    buyer = models.ForeignKey(Profile, on_delete=models.CASCADE, related_name='buyer', blank=True, null=True)
 
     def __str__(self):
         return f'{self.item_name} posting by {self.seller} posted on {self.timestamp.strftime("%m/%d/%Y, %H:%M:%S")}'

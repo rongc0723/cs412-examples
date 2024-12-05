@@ -1,3 +1,75 @@
+*{
+    font-family: 'Roboto', sans-serif;
+}
+
+body {
+    background-color: #f4f4f4;
+}
+
+h2, h3, form {
+    margin: 1rem;
+}
+
+
+/* =============================== NAVIGATION STYLING =============================== */
+
+nav {
+    background-color: #f8f9fa;
+    border: 1px solid #e0e0e0;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    border-radius: 2px;
+    padding: 1rem;
+    margin: 1rem;
+  }
+  
+  nav a {
+    text-decoration: none;
+    color: #007bff;
+    font-weight: 600;
+    margin-right: 1rem;
+    transition: color 0.3s ease;
+    display: inline-block;
+    border-radius: 6px;
+    padding: 0.5rem 1rem;
+    transition: all 0.5s ease;
+  }
+  
+  nav a:hover {
+    color: #0056b3;
+    background-color: #e9ecef;
+  }
+  
+  nav form {
+    display: inline-block;
+    margin: 0;
+  }
+  
+  nav input[type="submit"] {
+    background-color: #dc3545;
+    color: #fff;
+    border: none;
+    padding: 0.5rem 1rem;
+    border-radius: 5px;
+    cursor: pointer;
+    font-weight: 600;
+    transition: background-color 0.3s ease;
+  }
+  
+  nav input[type="submit"]:hover {
+    background-color: #b02a37;
+  }
+  
+  nav p {
+    margin: 0;
+    font-size: 0.9rem;
+    color: #6c757d;
+  }
+
+
+/* =============================== SHOW ALL ITEMS STYLING =============================== */
 
 .items-container {
     display: grid;
@@ -5,8 +77,8 @@
     grid-gap: 10px;
     padding: 20px;
     row-gap: 30px;
+    margin: 0;
 }
-
 
 .item {
     border: 1px solid black;
@@ -16,6 +88,7 @@
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
     padding: 10px;
     transition: background-color 1s ease, transform 0.3s ease;
+    background-color: #f8f9fa;
 }
 
 .item-images img {
@@ -47,3 +120,165 @@
     width: 400px;
     height: auto;
 }
+
+
+.sold {
+    color: white;
+    background-color: red;
+    font-weight: bold;
+    padding: 5px 10px;
+    border-radius: 5px;
+    margin-left: 10px;
+}
+
+/* =============================== ITEM PAGE STYLING =============================== */
+
+.item-page {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    margin: 20px;
+    background-color: white;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+    padding: 20px;
+}
+
+.item-page > div {
+    padding: 10px;
+    width: 48%;
+}
+
+.item-page img {
+    max-width: 400px;
+    height: auto;
+    border-radius: 10px;
+}
+
+.item-page p {
+    font-size: 1.1rem;
+    color: #555;
+    line-height: 1.6;
+}
+
+.item-page a {
+    color: #007bff;
+    text-decoration: none;
+}
+
+.item-page a:hover {
+    text-decoration: underline;
+}
+
+/* Reviews section styling */
+.reviews {
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    margin: 1rem;
+}
+
+.review {
+    margin-bottom: 20px;
+    padding: 10px;
+    border-bottom: 1px solid #ccc;
+}
+
+.review:last-child {
+    border-bottom: none;
+}
+
+.review p {
+    margin: 5px 0;
+}
+
+/* Rating styling */
+.review p:nth-child(2) {
+    font-weight: bold;
+}
+
+
+/* =============================== CREATE POSTING FORM STYLIGN =============================== */
+.create-post-title {
+    font-size: 2rem;
+    color: #333;
+    margin-top: 20px;
+    margin-bottom: 30px;
+    text-align: center;
+}
+
+.create-post-form {
+    background-color: #fff;
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    padding: 30px;
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+/* Table styling */
+.create-post-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 20px;
+}
+
+.create-post-table th,
+.create-post-table td {
+    padding: 10px;
+    text-align: left;
+}
+
+.create-post-table th {
+    width: 30%;
+    font-weight: bold;
+    font-size: 1.1rem;
+    color: #333;
+}
+
+.create-post-table td {
+    width: 70%;
+}
+
+.create-post-table input[type="text"],
+.create-post-table input[type="number"],
+.create-post-table textarea,
+.create-post-table input[type="file"] {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 1rem;
+}
+
+.create-post-table input[type="file"] {
+    padding: 5px;
+    cursor: pointer;
+}
+
+.create-post-table textarea {
+    resize: vertical;
+    min-height: 100px;
+}
+
+/* Submit button styling */
+.create-post-submit {
+    background-color: #007bff;
+    color: white;
+    font-size: 1.2rem;
+    padding: 15px 30px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    width: 100%;
+    margin-top: 20px;
+    font-weight: bold;
+}
+
+.create-post-submit:hover {
+    background-color: #0056b3;
+}
+
+
