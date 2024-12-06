@@ -73,8 +73,6 @@ class ShowUserView(DetailView):
         context = super().get_context_data(**kwargs)
         profile = self.get_object()
         # get all items that the user is selling
-        user = self.request.user
-        profile = Profile.objects.get(user=user)
         items = Item.objects.filter(seller=profile)
         sold_items = items.filter(is_sold=True).order_by('-timestamp')
         sale_items = items.filter(is_sold=False).order_by('-timestamp')
