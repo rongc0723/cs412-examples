@@ -34,9 +34,12 @@
             </p>
             {% endif %}
         </div>
-        {% if item.seller.user == request.user %}
-        <a href="{% url 'edit_listing' item.pk %}">Update Listing</a>
-        {% endif %}
+        <p>
+            {% if item.seller.user == request.user %}
+            <a href="{% url 'edit_listing' item.pk %}" class="update">Update Listing</a>
+            <a href="{% url 'delete_listing' item.pk %}" class="delete">Delete Listing</a>
+            {% endif %}
+        </p>
     </div>
 </div>
 <h2>Review</h2>

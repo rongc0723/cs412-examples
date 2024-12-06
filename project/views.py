@@ -14,7 +14,7 @@ from collections import defaultdict
 
 # Create your views here.
 
-from django.views.generic import ListView, DetailView, CreateView, UpdateView
+from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
 from .models import Item
 from .forms import CreateItemForm, UpdateListingForm
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
@@ -257,5 +257,23 @@ class UpdateListingView(UserPassesTestMixin, UpdateView):
     def get_success_url(self):
         return reverse('show_item', kwargs={'pk': self.object.pk})
 
+class DeleteListingView(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
+    """A view to delete a status message"""
+    model = Item
+    template_name = 'project/delete_listing.html'
+    context_object_name = 'item'
+
+    def get_success_url(self) -> str:
+        return reverse('profile')
+    
+    def test_func(self) -> bool | None:
+        item = self.get_object()
+        return item.seller.user == self.request.user
+
+    def handle_no_permission(self) -> HttpResponseRedirect:
+        return render(self.request, 'project/no_permission.html', {
+            'message': "You are not authorized to edit this listing."
+        })
+   
 
 

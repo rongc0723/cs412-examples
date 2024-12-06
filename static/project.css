@@ -167,6 +167,14 @@ nav {
     text-decoration: none;
 }
 
+.item-page .delete {
+    color: red;
+}
+
+.item-page .update {
+    color: green;
+}
+
 .item-page a:hover {
     text-decoration: underline;
 }
@@ -339,4 +347,54 @@ p {
 
 .back {
     margin: 1rem;
+}
+
+
+.confirmation {
+    background-color: #f8f8f8;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    padding: 20px;
+    width: 300px;
+    text-align: center;
+    margin: 1rem;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.confirmation-text {
+    font-size: 18px;
+    color: #333;
+    margin-bottom: 20px;
+}
+
+.button-container {
+    display: flex;
+    justify-content: space-evenly;
+}
+
+.button {
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.confirm-yes {
+    background-color: #28a745; /* Green */
+    color: white;
+}
+
+.confirm-yes:hover {
+    background-color: #218838;
+}
+
+.confirm-no {
+    background-color: #dc3545; /* Red */
+    color: white;
+}
+
+.confirm-no:hover {
+    background-color: #c82333;
 }
