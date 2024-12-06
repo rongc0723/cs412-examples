@@ -1,0 +1,9 @@
+{% extends 'project/base.html' %}
+
+{% block content %}
+<div class="no-permission-container">
+    <h2>Access Denied</h2>
+    <p>{{ message }}</p>
+    <a href="{% url 'show_all_items' %}">Go Back to Home</a>
+</div>
+{% endblock %}

@@ -5,18 +5,18 @@
 <h2>View other users</h2>
 
 <div class="items-container">
-    {% for user in users %}
-        <a href="{% url 'show_user' user.pk %}" class="item-link">
+    {% for profile in profiles %}
+        <a href="{% url 'show_user' profile.pk %}" class="item-link">
         <div class="item">
-            <h3>{{ user.username }}</h3>
-            <p>Items for sale: {{ user.item_set.count }}</p>
-            <p>Member since: {{ user.created_at }}</p>
-            <p>Rating: {{ user.get_ratings }}</p>
-            <p>City: {{ user.city }}</p>
-            <p>Email: {{ user.email_address }}</p>
+            <h3>{{ profile.username }}</h3>
+            <p>Items for sale: {{ profile.item_set.count }}</p>
+            <p>Member since: {{ profile.created_at }}</p>
+            <p>Rating: {{ profile.get_ratings }}</p>
+            <p>City: {{ profile.city }}</p>
+            <p>Email: {{ profile.email_address }}</p>
             <div class="item-images">
-                {% if user.profile_picture.url %}
-                    <img src="{{ user.profile_picture.url }}" alt="Image of {{ user.username }}">
+                {% if profile.profile_picture.url %}
+                    <img src="{{ profile.profile_picture.url }}" alt="Image of {{ profile.username }}">
                 {% else %}
                     <img src="https://static.vecteezy.com/system/resources/previews/004/141/669/non_2x/no-photo-or-blank-image-icon-loading-images-or-missing-image-mark-image-not-available-or-image-coming-soon-sign-simple-nature-silhouette-in-frame-isolated-illustration-vector.jpg" alt="No image available">
                 {% endif %}

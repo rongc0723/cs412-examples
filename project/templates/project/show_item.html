@@ -8,6 +8,7 @@
     </span>
     {% endif %}
 </h2>
+<a href="{% url 'show_all_items' %}" class="back">Back to all items</a>
 <div class="item-page">
     <div>
         {% for img in item.get_images %}
@@ -32,6 +33,10 @@
                 </a>
             </p>
             {% endif %}
+        </div>
+        {% if item.seller.user == request.user %}
+        <a href="{% url 'edit_listing' item.pk %}">Update Listing</a>
+        {% endif %}
     </div>
 </div>
 <h2>Review</h2>

@@ -3,7 +3,7 @@
 {% block content %}
 
 <!-- very basic log in form -->
-<h1>Login</h1>
+<h2>Login</h2>
 <form method="post" action="{% url 'project_login' %}" >
     {% csrf_token %}
     {{form}}
@@ -15,5 +15,8 @@
     <input type="submit" value="Login">
 </form>
 <hr>
-Don't have an account yet? <br>
+<div class="register-login">
+    Don't have an account yet? <br>
+    <a href="{% url 'create_profile_project' %}">Register</a>
+</div>
 {% endblock %}  

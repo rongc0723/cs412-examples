@@ -6,7 +6,7 @@
 <p>Fill in the form below to create your new profile</p>
 <form method = 'POST' enctype="multipart/form-data">
     {% csrf_token %}
-    <table class="profile">
+    <table>
         {% for field in user_form %}
         <tr>
             <th>{{field.name}}</th>

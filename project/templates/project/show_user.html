@@ -2,21 +2,77 @@
 
 
 {% block content %}
-<div>
-    <h2>Seller</h2>
-    <h3>{{ user.username }}</h3>
-    <p>Items for sale: {{ user.item_set.count }}</p>
-    <p>Member since: {{ user.created_at }}</p>
-    <p>Rating: {{ user.get_ratings }}</p>
-    <p>City: {{ user.city }}</p>
-    <p>Email: {{ user.email_address }}</p>
-    <div class="item-images">
-        {% if user.profile_picture.url %}
-        <img src="{{ user.profile_picture.url }}" alt="Image of {{ user.username }}">
-        {% else %}
-        <img src="https://static.vecteezy.com/system/resources/previews/004/141/669/non_2x/no-photo-or-blank-image-icon-loading-images-or-missing-image-mark-image-not-available-or-image-coming-soon-sign-simple-nature-silhouette-in-frame-isolated-illustration-vector.jpg" alt="No image available">
+<h2>{{ profile.first_name }} {{ profile.last_name }}'s Profile</h2>
+<a href="{% url 'show_all_users' %}" class="back">Back to Users</a>
+<div class="profile">
+    <div>
+        <img src="{{ profile.profile_picture.url }}" alt="Profile picture of {{ profile.username }}">
+        {% if profile.user == request.user %}
+        <p>
+            <a href="{% url 'edit_profile' %}">Update Profile</a>
+        </p>
         {% endif %}
-    </div>
+        </div>
+    
+    <div>
+        <p>Username: {{ profile.username }}</p>
+        <p>Email: {{ profile.email_address }}</p>
+        <p>Joined: {{ profile.created_at }}</p>
+        <p>Total Number of Items: {{ profile.item_set.count }}</p>
+        {{ bar_div | safe}}
+    </div>  
+</div>
+
+<div class="graph">
+</div>
+
+<h2>Current Items on sale</h2>
+<div class="items-container">
+    {% for item in sale_items %}
+    <a href="{% url 'show_item' item.pk %}" class="item-link">
+        <div class="item">
+            <h3>{{ item.item_name }}</h3>
+            <p>Price: ${{ item.price }}
+            {% if item.is_sold %}
+                <span class="sold">SOLD</span>
+            {% endif %}
+            </p>
+            <p>Seller: {{ item.seller.username }}</p>
+            <p>Posted: {{ item.timestamp }}</p>
+            <div class="item-images">
+                {% if item.get_images %}
+                    <img src="{{ item.get_images.0.image_file.url }}" alt="Image of {{ item.item_name }}">
+                {% else %}
+                    <img src="https://static.vecteezy.com/system/resources/previews/004/141/669/non_2x/no-photo-or-blank-image-icon-loading-images-or-missing-image-mark-image-not-available-or-image-coming-soon-sign-simple-nature-silhouette-in-frame-isolated-illustration-vector.jpg" alt="No image available">
+                {% endif %}
+            </div>
+        </div>
+    </a>
+    {% endfor %}
+</div>
+<h2>Sold Items</h2>
+<div class="items-container">
+    {% for item in sold_items %}
+    <a href="{% url 'show_item' item.pk %}" class="item-link">
+        <div class="item">
+            <h3>{{ item.item_name }}</h3>
+            <p>Price: ${{ item.price }}
+            {% if item.is_sold %}
+                <span class="sold">SOLD</span>
+            {% endif %}
+            </p>
+            <p>Seller: {{ item.seller.username }}</p>
+            <p>Posted: {{ item.timestamp }}</p>
+            <div class="item-images">
+                {% if item.get_images %}
+                    <img src="{{ item.get_images.0.image_file.url }}" alt="Image of {{ item.item_name }}">
+                {% else %}
+                    <img src="https://static.vecteezy.com/system/resources/previews/004/141/669/non_2x/no-photo-or-blank-image-icon-loading-images-or-missing-image-mark-image-not-available-or-image-coming-soon-sign-simple-nature-silhouette-in-frame-isolated-illustration-vector.jpg" alt="No image available">
+                {% endif %}
+            </div>
+        </div>
+    </a>
+    {% endfor %}
 </div>
 
 {% endblock %}

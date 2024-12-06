@@ -280,3 +280,63 @@ nav {
 .create-post-submit:hover {
     background-color: #0056b3;
 }
+
+.no-permission-container * {
+    margin: 1rem;
+}
+
+/* =============================== PROFILE PAGE STYLING =============================== */
+.profile {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    margin: 20px;
+    background-color: white;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+    padding: 20px;
+}
+
+.profile > div {
+    padding: 10px;
+    width: 48%;
+}
+
+
+.profile img {
+    max-width: 400px;
+    height: auto;
+    border-radius: 10px;
+}
+
+.profile p {
+    font-size: 1.1rem;
+    color: #555;
+    line-height: 1.6;
+}
+
+.profile a {
+    color: #007bff;
+    text-decoration: none;
+}
+
+.profile a:hover {
+    text-decoration: underline;
+}
+
+.graph {
+    margin: 1rem;
+}
+
+p {
+    margin: 1rem;
+}
+
+.register-login {
+    margin: 1rem;
+}
+
+.back {
+    margin: 1rem;
+}
