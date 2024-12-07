@@ -6,7 +6,7 @@ from django.conf import settings
 from .views import ShowAllItemsView, ShowItemView, \
 CreatePostingView, ShowAllUsersView, ShowUserView, \
 ShowPersonalProfileView, CreateProfileView, UpdateProfileView, \
-UpdateListingView, DeleteListingView
+UpdateListingView, DeleteListingView, ShowPurchaseHistoryView
 from django.contrib.auth import views as auth_views
 
 
@@ -24,4 +24,5 @@ urlpatterns = [
     path('edit_listing/<int:pk>', UpdateListingView.as_view(), name='edit_listing'),
     path('edit_profile/', UpdateProfileView.as_view(), name='edit_profile'),
     path('delete_listing/<int:pk>', DeleteListingView.as_view(), name='delete_listing'),
+    path('purchase_history/', ShowPurchaseHistoryView.as_view(), name='purchase_history'),
 ]

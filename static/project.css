@@ -398,3 +398,46 @@ p {
 .confirm-no:hover {
     background-color: #c82333;
 }
+
+
+/* =============================== PURHCASE HISTORY STYLING =============================== */
+.table-container {
+    padding: 20px;
+    background-color: #f9f9f9;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    overflow-x: auto;
+    margin: 1rem;
+  }
+  
+  .purchase-history-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-family: Arial, sans-serif;
+  }
+  
+  .purchase-history-table thead {
+    background-color: #4CAF50;
+    color: white;
+  }
+  
+  .purchase-history-table th, 
+  .purchase-history-table td {
+    padding: 12px 15px;
+    text-align: left;
+    border: 1px solid #ddd;
+  }
+  
+  .purchase-history-table tr:nth-child(even) {
+    background-color: #f2f2f2;
+  }
+  
+  .purchase-history-table th {
+    text-transform: uppercase;
+    font-weight: bold;
+  }
+  
+  .purchase-history-table td {
+    font-size: 14px;
+  }
+  

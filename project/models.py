@@ -36,6 +36,7 @@ class Item(models.Model):
     description = models.TextField(blank=False)
     price = models.DecimalField(max_digits=6, decimal_places=2, blank=False)
     is_sold = models.BooleanField(default=False)
+    sold_timestamp = models.DateTimeField(blank=True, null=True)
     buyer = models.ForeignKey(Profile, on_delete=models.CASCADE, related_name='buyer', blank=True, null=True)
 
     def __str__(self):
@@ -46,6 +47,7 @@ class Item(models.Model):
 
     def get_review(self):
         return Review.objects.filter(item=self)
+    
 
 class Image(models.Model):
     """Model for an image"""

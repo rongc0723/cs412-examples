@@ -274,6 +274,23 @@ class DeleteListingView(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
         return render(self.request, 'project/no_permission.html', {
             'message': "You are not authorized to edit this listing."
         })
-   
+
+class ShowPurchaseHistoryView(LoginRequiredMixin, ListView):
+    model = Item
+    template_name = 'project/purchase_history.html'
+    context_object_name = 'items'
+
+    def get_queryset(self):
+        user = self.request.user
+        profile = Profile.objects.get(user=user)
+        items = Item.objects.filter(buyer=profile).order_by('-timestamp')
+        return items
+
+    def get_context_data(self, **kwargs: Any) -> dict[str, Any]:
+        context = super().get_context_data(**kwargs)
+        total_spent = sum([item.price for item in context['items']])
+        context['total_spent'] = total_spent
+        return context 
+
 
 
