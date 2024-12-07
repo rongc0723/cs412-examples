@@ -11,6 +11,7 @@ from django.http import Http404
 import plotly
 import plotly.graph_objs as go
 from collections import defaultdict
+from django.db import transaction
 
 # Create your views here.
 
@@ -99,7 +100,7 @@ class ShowUserView(DetailView):
         fig.update_layout(
             width=400,
             height=300,
-            title="Ratings",
+            title="Seller Ratings",
             xaxis_title="Count",
             yaxis_title="Rating",
             yaxis=dict(
@@ -154,7 +155,7 @@ class ShowPersonalProfileView(LoginRequiredMixin, DetailView):
         fig.update_layout(
             width=400,
             height=300,
-            title="Ratings",
+            title="Seller Ratings",
             xaxis_title="Count",
             yaxis_title="Rating",
             yaxis=dict(
@@ -274,6 +275,27 @@ class DeleteListingView(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
         return render(self.request, 'project/no_permission.html', {
             'message': "You are not authorized to edit this listing."
         })
+    
+class PurchaseConfirmationView(LoginRequiredMixin, UpdateView):
+    model = Item
+    template_name = 'project/purchase_confirmation.html'
+    context_object_name = 'item'
+    fields = ['is_sold', 'buyer']
+
+    def get_success_url(self) -> str:
+        return reverse('show_item', kwargs={'pk': self.object.pk})
+    
+    def form_invalid(self, form: BaseModelForm) -> HttpResponse:
+        print("form is invalid")
+        print(form.errors)
+        return super().form_invalid(form)
+
+    def get_context_data(self, **kwargs: Any) -> dict[str, Any]:
+        context = super().get_context_data(**kwargs)
+        profile = Profile.objects.get(user=self.request.user)
+        context['profile'] = profile
+        return context
+
 
 class ShowPurchaseHistoryView(LoginRequiredMixin, ListView):
     model = Item
@@ -291,6 +313,7 @@ class ShowPurchaseHistoryView(LoginRequiredMixin, ListView):
         total_spent = sum([item.price for item in context['items']])
         context['total_spent'] = total_spent
         return context 
+
 
 
 

@@ -1,0 +1,43 @@
+{% extends "project/base.html" %}
+
+{% block content %}
+
+<h2>Confirmation</h2>
+<div class="item-page">
+    <div>
+        {% for img in item.get_images %}
+        <img src="{{ img.image_file.url }}" alt="{{ img.image_file.url }}">
+        {% endfor %}
+    </div>
+    <div>
+        <p>Description: {{ item.description }}</p>
+        <p>Category: {{ item.type_of_item }}</p>
+        <p>Price: ${{ item.price }}</p>
+        <p>
+            Seller: 
+            <a href="{% url 'show_user' item.seller.pk %}">
+                {{ item.seller.username }}
+            </a>
+        </p>
+            <p>Posted: {{ item.timestamp }}</p>
+        </div>
+    </div>
+</div>
+
+<div class="confirmation">
+    <p class="confirmation-text">Are you sure you want to purchase {{item.item_name}}?</p>
+    <div class="button-container">
+        <form method='POST'>
+            {% csrf_token %}
+            <input type='hidden' name="is_sold" value="true">
+            <input type='hidden' name="buyer" value="{{ profile.pk }}">
+            <input type='submit' name='yes' value='Yes' class="button confirm-yes">
+        </form>
+        <form method="GET" action="{% url 'show_item' item.pk %}">
+            {% csrf_token %}
+            <input type='submit' name='no' value='No' class="button confirm-no">
+        </form>
+    </div>
+</div>
+
+{% endblock %}

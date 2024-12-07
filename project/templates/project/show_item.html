@@ -26,7 +26,7 @@
             </a>
         </p>
             <p>Posted: {{ item.timestamp }}</p>
-            {% if item.is_sold %}
+            {% if item.buyer %}
             <p>Sold to: 
                 <a href="{% url 'show_user' item.buyer.pk %}">
                     {{ item.buyer.username }}
@@ -42,6 +42,7 @@
         </p>
     </div>
 </div>
+<a href="{% url 'purchase_confirmation' item.pk %}" class="purchase_item">Buy Item</a>
 <h2>Review</h2>
 {% if item.get_review %}
 <div class="reviews">
