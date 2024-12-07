@@ -13,5 +13,59 @@
         <input type="checkbox" name="include_sold" id="include_sold">
         Include Sold Items
     </label>
+
+    <label>
+        <input 
+            type="checkbox" 
+            name="type_of_item" 
+            value="electronics" 
+        >
+        Electronics
+    </label>
+    <label>
+        <input 
+            type="checkbox" 
+            name="type_of_item" 
+            value="clothing" 
+        >
+        Clothing
+    </label>
+    <label>
+        <input 
+            type="checkbox" 
+            name="type_of_item" 
+            value="furniture" 
+        >
+        Furniture
+    </label>
+    <label>
+        <input 
+            type="checkbox" 
+            name="type_of_item" 
+            value="books" 
+        >
+        Books
+    </label>
+    <label>
+        <input 
+            type="checkbox" 
+            name="type_of_item" 
+            value="toys" 
+        >
+        Toys
+    </label>
+    <label>
+        <input 
+            type="checkbox" 
+            name="type_of_item" 
+            value="other" 
+            >
+        Other
+    </label>
+
     <button type="submit">Apply Filters</button>
+    <form action="{% url 'show_all_items' %}">
+        <button type="submit">Clear Filters</button>
+    </form>
+    
 </form>

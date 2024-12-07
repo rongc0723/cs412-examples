@@ -3,7 +3,7 @@
 
 {% block content %}
 <h2>View other users</h2>
-
+{% include 'project/user_filter.html' %}
 <div class="items-container">
     {% for profile in profiles %}
         <a href="{% url 'show_user' profile.pk %}" class="item-link">

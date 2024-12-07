@@ -10,7 +10,7 @@
 </h2>
 <a href="{% url 'show_all_items' %}" class="back">Back to all items</a>
 <div class="item-page">
-    <div>
+    <div class="item-page-img">
         {% for img in item.get_images %}
         <img src="{{ img.image_file.url }}" alt="{{ img.image_file.url }}">
         {% endfor %}
@@ -36,13 +36,15 @@
         </div>
         <p>
             {% if item.seller.user == request.user %}
-            <a href="{% url 'edit_listing' item.pk %}" class="update">Update Listing</a>
-            <a href="{% url 'delete_listing' item.pk %}" class="delete">Delete Listing</a>
+            <a href="{% url 'edit_listing' item.pk %}" class="button confirm-yes">Update Listing</a>
+            <a href="{% url 'delete_listing' item.pk %}" class="button confirm-no">Delete Listing</a>
             {% endif %}
         </p>
     </div>
 </div>
+{% if not item.is_sold and item.seller.user != request.user %}
 <a href="{% url 'purchase_confirmation' item.pk %}" class="purchase_item">Buy Item</a>
+{% endif %}
 <h2>Review</h2>
 {% if item.get_review %}
 <div class="reviews">
@@ -54,7 +56,16 @@
         <p>Posted: {{ review.timestamp }}</p>
     </div>
     {% endfor %}
+    {% if item.get_review.0.reviewer.user == request.user %}
+    <a class="button confirm-yes" href="{% url 'update_review' review.pk %}">Update Review</a>
+    <a class="button confirm-no" href="{% url 'delete_review' review.pk %}">Delete Review</a>
+    {% endif %}
+</div>
+{% else %}
+{% if not item.get_review and item.buyer.user == request.user %}
+<a class="purchase_item" href="{% url 'create_review' item.pk %}">Leave a review</a>
 {% else %}
 <h3>No reviews yet</h3>
+{% endif %}
 {% endif %}
 {% endblock %}

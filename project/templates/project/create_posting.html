@@ -7,12 +7,12 @@
     <table class="create-post-table">
         {% for field in form %}
         <tr>
-            <th>{{field.name}}</th>
+            <th>{{field.label_tag}}</th>
             <td>{{field}}</td>
         </tr>
         {% endfor %}
         <tr>
-            <th>Images</th>
+            <th>Images:</th>
             <td>
                 <input type="file" name="files" multiple class="create-post-file">
             </td>

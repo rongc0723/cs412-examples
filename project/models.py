@@ -29,10 +29,18 @@ class Profile(models.Model):
 
 class Item(models.Model):
     """Model for an item"""
+    ITEM_TYPE_CHOICES = [
+        ('electronics', 'Electronics'),
+        ('furniture', 'Furniture'),
+        ('clothing', 'Clothing'),
+        ('books', 'Books'),
+        ('toys', 'Toys'),
+        ('other', 'Other'),
+    ]
     seller = models.ForeignKey(Profile, on_delete=models.CASCADE)
     timestamp = models.DateTimeField(auto_now_add=True)
     item_name = models.CharField(max_length=30, blank=False)
-    type_of_item = models.CharField(max_length=30, blank=True)
+    type_of_item = models.CharField(max_length=30, choices=ITEM_TYPE_CHOICES, blank=False)
     description = models.TextField(blank=False)
     price = models.DecimalField(max_digits=6, decimal_places=2, blank=False)
     is_sold = models.BooleanField(default=False)

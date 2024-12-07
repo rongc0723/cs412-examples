@@ -9,7 +9,7 @@
     <table>
         {% for field in user_form %}
         <tr>
-            <th>{{field.name}}</th>
+            <th>{{field.label_tag}}</th>
             <td>{{field}}</td>
         </tr>
         {% endfor %}
@@ -17,7 +17,7 @@
 
         {% for field in form %}
         <tr>
-            <th>{{field.name}}</th>
+            <th>{{field.label_tag}}</th>
             <td>{{field}}</td>
         </tr>
         {% endfor %}

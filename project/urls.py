@@ -7,7 +7,7 @@ from .views import ShowAllItemsView, ShowItemView, \
 CreatePostingView, ShowAllUsersView, ShowUserView, \
 ShowPersonalProfileView, CreateProfileView, UpdateProfileView, \
 UpdateListingView, DeleteListingView, ShowPurchaseHistoryView, \
-PurchaseConfirmationView
+PurchaseConfirmationView, UpdateReviewView, CreateReviewView, DeleteReviewView
 from django.contrib.auth import views as auth_views
 
 
@@ -26,5 +26,8 @@ urlpatterns = [
     path('edit_profile/', UpdateProfileView.as_view(), name='edit_profile'),
     path('delete_listing/<int:pk>', DeleteListingView.as_view(), name='delete_listing'),
     path('purchase_history/', ShowPurchaseHistoryView.as_view(), name='purchase_history'),
-    path('purchase_confirmation/<int:pk>', PurchaseConfirmationView.as_view(), name='purchase_confirmation')
+    path('purchase_confirmation/<int:pk>', PurchaseConfirmationView.as_view(), name='purchase_confirmation'),
+    path('create_review/<int:pk>', CreateReviewView.as_view(), name='create_review'),
+    path('update_review/<int:pk>', UpdateReviewView.as_view(), name='update_review'),
+    path('delete_review/<int:pk>', DeleteReviewView.as_view(), name='delete_review')
 ]

@@ -31,6 +31,7 @@
             {% csrf_token %}
             <input type='hidden' name="is_sold" value="true">
             <input type='hidden' name="buyer" value="{{ profile.pk }}">
+            <input type="hidden" name="sold_timestamp" value="{{ timestamp|date:'Y-m-d H:i:s' }}">
             <input type='submit' name='yes' value='Yes' class="button confirm-yes">
         </form>
         <form method="GET" action="{% url 'show_item' item.pk %}">

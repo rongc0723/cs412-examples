@@ -1,0 +1,30 @@
+{% extends "project/base.html" %}
+
+{% block content %}
+
+<h2>Delete Your Review for {{ item.item_name }}?</h2>
+<div class="reviews">
+
+    <div class="review">
+        <p>{{ review.review_text }}</p>
+        <p>Rating: {{ review.rating }}</p>
+        <p>Posted by: {{ review.reviewer.username }}</p>
+        <p>Posted: {{ review.timestamp }}</p>
+    </div>
+</div>
+
+<div class="confirmation">
+    <p class="confirmation-text">Are you sure you want to proceed?</p>
+    <div class="button-container">
+        <form method='POST'>
+            {% csrf_token %}
+            <input type='submit' name='yes' value='Yes' class="button confirm-yes">
+        </form>
+        <form method="GET" action="{% url 'show_item' item.pk %}">
+            {% csrf_token %}
+            <input type='submit' name='no' value='No' class="button confirm-no">
+        </form>
+    </div>
+</div>
+
+{% endblock %}

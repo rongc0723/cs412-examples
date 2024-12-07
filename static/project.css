@@ -163,7 +163,6 @@ nav {
 }
 
 .item-page a {
-    color: #007bff;
     text-decoration: none;
 }
 
@@ -379,10 +378,11 @@ p {
     font-size: 16px;
     cursor: pointer;
     transition: background-color 0.3s ease;
+    text-decoration: none;
 }
 
 .confirm-yes {
-    background-color: #28a745; /* Green */
+    background-color: #28a745;
     color: white;
 }
 
@@ -440,4 +440,34 @@ p {
   .purchase-history-table td {
     font-size: 14px;
   }
+
+  .purchase_item {
+    margin: 1rem;
+    display: inline-block; 
+    padding: 10px 20px; 
+    font-size: 16px; 
+    background-color: #28a745; 
+    color: white; 
+    text-align: center; 
+    border-radius: 5px; 
+    text-decoration: none; 
+    transition: background-color 0.3s ease; 
+}
+
+.purchase_item:hover {
+    background-color: #218838; 
+}
+
+.purchase_item:active {
+    background-color: #1e7e34;
+}
+
+.purchase_item:focus {
+    outline: none;
+    box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
+}
   
+.item-page-img img {
+    height: auto;
+    width: 200px;
+}

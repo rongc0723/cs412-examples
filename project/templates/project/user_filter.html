@@ -1,0 +1,16 @@
+
+<h3>Sort By</h3>
+<form action="{% url 'show_all_users' %}">
+    <label for="sort_by">Filter:</label>
+    <select name="sort_by" id="sort_by">
+        <option value=""></option>
+      <option value="rating_dsc">Rating: Highest</option>
+      <option value="rating_asc">Rating: Lowest</option>
+      <option value="num_item_asc">Number of Items: Lowest</option>
+      <option value="num_item_dsc">Number of Items: Highest</option>
+    </select>
+    <button type="submit">Apply Filters</button>
+    <form action="{% url 'show_all_users' %}">
+        <button type="submit">Clear Filters</button>
+    </form>
+</form>

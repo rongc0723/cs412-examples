@@ -1,0 +1,17 @@
+{% extends 'project/base.html' %}
+
+{% block content %}
+<h2 class="create-post-title">Leave a Review for {{item.item_name}} sold by {{item.seller.username}}</h2>
+<form method="POST" enctype="multipart/form-data" class="create-post-form">
+    {% csrf_token %}
+    <table class="create-post-table">
+        {% for field in form %}
+        <tr>
+            <th>{{field.name}}</th>
+            <td>{{field}}</td>
+        </tr>
+        {% endfor %}
+    </table>
+    <input type="submit" name="Leave Review" value="Leave Review" class="create-post-submit">
+</form>
+{% endblock %}
