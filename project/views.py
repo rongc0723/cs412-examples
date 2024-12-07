@@ -27,6 +27,9 @@ from django.shortcuts import redirect
 
 
 class ShowAllItemsView(ListView):
+    '''
+    A view to show all items
+    '''
     model = Item
 
     context_object_name = 'items'
@@ -34,6 +37,9 @@ class ShowAllItemsView(ListView):
     template_name = 'project/show_all_items.html'
 
     def get_queryset(self):
+        ''''
+        Get the queryset for this view. Apply filters and sorting based on the request
+        '''
         qs = super().get_queryset().order_by('-timestamp')
         qs = qs.filter(is_sold=False)
         if self.request.GET.get('include_sold') == 'on':
@@ -55,21 +61,28 @@ class ShowAllItemsView(ListView):
             
 
 class ShowItemView(LoginRequiredMixin, DetailView):
+    '''
+    A view to show a single item
+    '''
     model = Item
     template_name = 'project/show_item.html'
     context_object_name = 'item'
+
     def get_context_data(self, **kwargs: Any) -> dict[str, Any]:
         context = super().get_context_data(**kwargs)
         item = self.get_object()
         review = item.get_review().first()
         context['review'] = review
         return context
+    
     def handle_no_permission(self) -> HttpResponseRedirect:
+        ''' Handle the case where the user is not logged in '''
         return render(self.request, 'project/no_permission.html', {
             'message': "Please log in to view this item."
         })
 
 class ShowAllUsersView(ListView):
+    ''' A view to show all users '''
     model = Profile
 
     context_object_name = 'profiles'
@@ -77,6 +90,7 @@ class ShowAllUsersView(ListView):
     template_name = 'project/show_all_users.html'
 
     def get_queryset(self):
+        ''' Get the queryset for this view. Apply filters and sorting based on the request '''
         qs = super().get_queryset()
         qs = sorted(qs, key=lambda obj: obj.get_ratings(), reverse=True)
         if 'sort_by' in self.request.GET:
@@ -92,9 +106,11 @@ class ShowAllUsersView(ListView):
         return qs
 
 class ShowUserView(DetailView):
+    ''' Show the details for one user '''
     model = Profile
     template_name = 'project/show_user.html'
     def get_context_data(self, **kwargs: Any) -> dict[str, Any]:
+        ''' Add additional context like a graph of ratings to the view '''
         context = super().get_context_data(**kwargs)
         profile = self.get_object()
         # get all items that the user is selling
@@ -139,6 +155,9 @@ class ShowUserView(DetailView):
         return context
 
 class ShowPersonalProfileView(LoginRequiredMixin, DetailView):
+    '''
+    A view to show the personal profile of the logged in user
+    '''
     model = Profile
     template_name = 'project/show_profile.html'
 
@@ -148,6 +167,7 @@ class ShowPersonalProfileView(LoginRequiredMixin, DetailView):
         return profile
     
     def get_context_data(self, **kwargs: Any) -> dict[str, Any]:
+        ''' Add additional context like a graph of ratings to the view '''
         context = super().get_context_data(**kwargs)
         profile = self.get_object()
         # get all items that the user is selling
@@ -196,6 +216,7 @@ class ShowPersonalProfileView(LoginRequiredMixin, DetailView):
         return context
 
 class CreatePostingView(LoginRequiredMixin, CreateView):
+    ''' A view to create a new item and save to db '''
     form_class = CreateItemForm
     template_name = 'project/create_posting.html'
     
@@ -247,6 +268,7 @@ class CreateProfileView(CreateView):
     def get_success_url(self):
         return reverse('show_all_users')
 class UpdateProfileView(LoginRequiredMixin, UpdateView):
+    ''' A view to update a profile '''
     form_class = UpdateProfileForm
     template_name = 'project/edit_profile.html'
     model = Profile
@@ -259,6 +281,7 @@ class UpdateProfileView(LoginRequiredMixin, UpdateView):
         return reverse('profile')
 
 class UpdateListingView(UserPassesTestMixin, UpdateView):
+    ''' A view to update a listing '''
     model = Item
     form_class = UpdateListingForm
     template_name = 'project/edit_listing.html'
@@ -303,6 +326,7 @@ class DeleteListingView(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
         })
     
 class PurchaseConfirmationView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
+    ''' A view to confirm a purchase '''
     model = Item
     template_name = 'project/purchase_confirmation.html'
     context_object_name = 'item'
@@ -354,6 +378,7 @@ class ShowPurchaseHistoryView(LoginRequiredMixin, ListView):
 
 
 class CreateReviewView(LoginRequiredMixin, CreateView):
+    ''' A view to create a new review and save to db '''
     model = Item
     form_class = CreateReviewForm
     template_name = 'project/create_review.html'
@@ -375,6 +400,7 @@ class CreateReviewView(LoginRequiredMixin, CreateView):
         return reverse('show_item', kwargs={'pk': self.object.item.pk})
 
 class UpdateReviewView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
+    ''' A view to update a review '''
     model = Review
     form_class = UpdateReviewForm
     template_name = 'project/update_review.html'
@@ -391,6 +417,7 @@ class UpdateReviewView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
     def get_success_url(self) -> str:
         return reverse('show_item', kwargs={'pk': self.object.item.pk})
 class DeleteReviewView(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
+    ''' A view to delete a review '''
     model = Review
     template_name = 'project/delete_review.html'
     context_object_name = 'review'
