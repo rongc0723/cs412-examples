@@ -1,3 +1,5 @@
+## project/views.py
+## descrption: the views for the project application
 import datetime
 from typing import Any
 from django.forms import BaseModelForm
@@ -40,8 +42,12 @@ class ShowAllItemsView(ListView):
         ''''
         Get the queryset for this view. Apply filters and sorting based on the request
         '''
+        # default queryset is to show all items in reverse chronological order by timestamp
         qs = super().get_queryset().order_by('-timestamp')
+        # filter out sold items
         qs = qs.filter(is_sold=False)
+
+        # apply filters based on the request
         if self.request.GET.get('include_sold') == 'on':
             qs = Item.objects.all()
         if 'sort_by' in self.request.GET:
@@ -92,7 +98,9 @@ class ShowAllUsersView(ListView):
     def get_queryset(self):
         ''' Get the queryset for this view. Apply filters and sorting based on the request '''
         qs = super().get_queryset()
+        # sort by number of items sold
         qs = sorted(qs, key=lambda obj: obj.get_ratings(), reverse=True)
+        # apply filters based on the request
         if 'sort_by' in self.request.GET:
             sort_by = self.request.GET['sort_by']
             if sort_by == 'rating_asc':
@@ -118,25 +126,32 @@ class ShowUserView(DetailView):
         sold_items = items.filter(is_sold=True).order_by('-timestamp')
         sale_items = items.filter(is_sold=False).order_by('-timestamp')
 
+        # add the items to the context
         context['sold_items'] = sold_items
         context['sale_items'] = sale_items
 
-        # plot the ratings
+        # gather all ratings
         reviews = profile.review_set.all()
         ratings = [review.rating for review in reviews]
 
+        # count the number of each rating
         rating_counts = defaultdict(int)
         for rating in ratings:
             rating_counts[rating] += 1
         
+        # fill in any missing ratings
         for i in range(6):
             if i not in rating_counts:
                 rating_counts[i] = 0
+        
+        # create a bar graph of the ratings
         y = list(range(6))
         x = [rating_counts[rating] for rating in y]
         
+        # create the plotly figure
         fig = go.Figure(go.Bar(x=x, y=y, orientation='h'))
 
+        # update the layout
         fig.update_layout(
             width=400,
             height=300,
@@ -149,6 +164,7 @@ class ShowUserView(DetailView):
                 ticktext=[str(i) for i in y],
             )
         )
+        # convert the plotly figure to a div and add to context
         bar_div = plotly.offline.plot({'data': fig.data, 'layout': fig.layout}, auto_open=False, output_type='div')
         context['bar_div'] = bar_div
 
@@ -176,28 +192,35 @@ class ShowPersonalProfileView(LoginRequiredMixin, DetailView):
         items = Item.objects.filter(seller=profile)
         sold_items = items.filter(is_sold=True).order_by('-timestamp')
         sale_items = items.filter(is_sold=False).order_by('-timestamp')
+        # calculate total revenue
         total_revenue = sum([item.price for item in sold_items])
         context['total_revenue'] = total_revenue
 
         context['sold_items'] = sold_items
         context['sale_items'] = sale_items
 
-        # plot the ratings
+        # gather all ratings
         reviews = profile.review_set.all()
         ratings = [review.rating for review in reviews]
 
+        # count the number of each rating
         rating_counts = defaultdict(int)
         for rating in ratings:
             rating_counts[rating] += 1
         
+        # fill in any missing ratings
         for i in range(6):
             if i not in rating_counts:
                 rating_counts[i] = 0
+        
+        # create a bar graph of the ratings
         y = list(range(6))
         x = [rating_counts[rating] for rating in y]
         
+        # create the plotly figure
         fig = go.Figure(go.Bar(x=x, y=y, orientation='h'))
 
+        # update the layout
         fig.update_layout(
             width=400,
             height=300,
@@ -210,6 +233,7 @@ class ShowPersonalProfileView(LoginRequiredMixin, DetailView):
                 ticktext=[str(i) for i in y],
             )
         )
+        # convert the plotly figure to a div and add to context
         bar_div = plotly.offline.plot({'data': fig.data, 'layout': fig.layout}, auto_open=False, output_type='div')
         context['bar_div'] = bar_div
 
@@ -224,8 +248,11 @@ class CreatePostingView(LoginRequiredMixin, CreateView):
         '''Handle submmission, needs to set foreign key'''
         user = self.request.user
         profile = Profile.objects.get(user=user)
+        # set the seller to the current user
         form.instance.seller = profile
+        # save the item
         item = form.save()
+        # save the images
         files = self.request.FILES.getlist('files')
         for f in files:
             Image.objects.create(image_file=f, item=item)
@@ -255,9 +282,11 @@ class CreateProfileView(CreateView):
         print("form is valid")
         user_form = UserCreationForm(self.request.POST)
         if user_form.is_valid():
+            # save the user
             user = user_form.save()
             profile = form.save(commit=False)
             profile.user = user
+            # save the profile
             profile.save()
             print(profile)
             login(self.request, user)
@@ -298,7 +327,9 @@ class UpdateListingView(UserPassesTestMixin, UpdateView):
 
     def form_valid(self, form: BaseModelForm) -> HttpResponse:
         item = form.save()
+        # delete all images
         item.image_set.all().delete()
+        # save the images
         files = self.request.FILES.getlist('files')
         for f in files:
             Image.objects.create(image_file=f, item=item)
@@ -385,6 +416,7 @@ class CreateReviewView(LoginRequiredMixin, CreateView):
 
     def form_valid(self, form: BaseModelForm) -> HttpResponse:
         item = self.get_object()
+        # use the form to create and save a review
         form.instance.reviewer = Profile.objects.get(user=self.request.user)
         form.instance.seller = item.seller
         form.instance.item = item
